@@ -6,11 +6,7 @@ import {
   Home, 
   BookOpen, 
   PhoneCall, 
-  CheckCircle2, 
-  AlertTriangle, 
-  Download, 
-  Smartphone,
-  Receipt
+  CheckCircle2
 } from 'lucide-react';
 import { UserProfile } from '../types';
 
@@ -39,31 +35,27 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
       {/* Slide-Out Drawer Panel */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 w-80 sm:w-96 bg-white z-50 shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-r border-slate-200 ${
+        className={`fixed top-0 left-0 bottom-0 w-80 sm:w-96 bg-white z-50 shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-r border-sky-100 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {/* Drawer Header */}
-        <div className="bg-emerald-950 text-white p-5 flex items-center justify-between border-b border-emerald-900">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-400 text-emerald-950 font-black text-lg flex items-center justify-center">
-              K
-            </div>
-            <div>
-              <h2 className="font-extrabold text-sm text-white">KMTC Student Services</h2>
-              <p className="text-[11px] text-emerald-300">Department of Physiotherapy</p>
-            </div>
+        {/* Drawer Header: White Light-Blue background without icon in the name */}
+        <div className="bg-gradient-to-r from-white via-sky-50 to-blue-50 text-slate-800 p-5 flex items-center justify-between border-b border-sky-200">
+          <div>
+            <h2 className="font-extrabold text-base text-slate-900 tracking-tight">KMTC Student Services</h2>
+            <p className="text-xs text-sky-700 font-medium">Department of Physiotherapy</p>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-emerald-200 hover:text-white hover:bg-emerald-900 transition-colors"
+            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-sky-100 transition-colors"
+            title="Close menu"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* User Identity Sub-bar */}
-        <div className="bg-slate-50 px-5 py-3 border-b border-slate-200 flex items-center justify-between text-xs">
+        <div className="bg-sky-50/50 px-5 py-3 border-b border-sky-100 flex items-center justify-between text-xs">
           <div>
             <span className="text-slate-500 font-medium">Logged in:</span>
             <strong className="text-slate-800 ml-1">{user.name} ({user.role})</strong>
@@ -78,18 +70,16 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
           
           {/* 1. FINANCE SECTOR */}
           <div>
-            <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 px-2 mb-1.5 flex items-center gap-1.5">
-              <CreditCard className="w-3.5 h-3.5 text-slate-500" />
+            <div className="text-[11px] font-black uppercase tracking-wider text-sky-900/60 px-2 mb-1.5 flex items-center gap-1.5">
+              <CreditCard className="w-3.5 h-3.5 text-sky-700" />
               <span>Finance & Fee Sector</span>
             </div>
             <div className="space-y-1">
               <button
                 onClick={() => { onOpenModal('fees'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-emerald-700 font-bold">📄</span> Fee Statement
-                </span>
+                <span>Fee Statement</span>
                 <span className="text-[11px] text-emerald-700 font-mono font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                   Bal: KES 0.00
                 </span>
@@ -97,21 +87,17 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
               <button
                 onClick={() => { onOpenModal('howToPay'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <Smartphone className="w-4 h-4 text-amber-600" /> How to Pay (M-Pesa / Bank)
-                </span>
-                <span className="text-[10px] text-slate-400">Paybill 964150</span>
+                <span>How to Pay (M-Pesa / Bank)</span>
+                <span className="text-[10px] text-slate-400 font-mono">Paybill 964150</span>
               </button>
 
               <button
                 onClick={() => { onOpenModal('fees'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <Receipt className="w-4 h-4 text-indigo-600" /> Invoices & Receipts
-                </span>
+                <span>Invoices & Receipts</span>
                 <span className="text-[10px] text-slate-400">Term 1 Paid</span>
               </button>
             </div>
@@ -119,18 +105,16 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
           {/* 2. EXAMS & ACADEMICS */}
           <div>
-            <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 px-2 mb-1.5 flex items-center gap-1.5">
-              <GraduationCap className="w-3.5 h-3.5 text-slate-500" />
+            <div className="text-[11px] font-black uppercase tracking-wider text-sky-900/60 px-2 mb-1.5 flex items-center gap-1.5">
+              <GraduationCap className="w-3.5 h-3.5 text-sky-700" />
               <span>Exams & Academic Records</span>
             </div>
             <div className="space-y-1">
               <button
                 onClick={() => { onOpenModal('grades'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-purple-600 font-bold">📊</span> Current Grades & GPA
-                </span>
+                <span>Current Grades & GPA</span>
                 <span className="text-[11px] font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded-md">
                   GPA 3.68
                 </span>
@@ -138,11 +122,9 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
               <button
                 onClick={() => { onOpenModal('grades'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <AlertTriangle className="w-4 h-4 text-rose-600" /> Supplementary (Supp) Checker
-                </span>
+                <span>Supplementary (Supp) Checker</span>
                 <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" /> 0 Supps
                 </span>
@@ -150,11 +132,9 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
               <button
                 onClick={() => { onOpenModal('grades'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-blue-600 font-bold">📜</span> Semester-by-Semester Results
-                </span>
+                <span>Semester-by-Semester Results</span>
                 <span className="text-[10px] text-slate-400">Year 1 & 2</span>
               </button>
             </div>
@@ -162,18 +142,16 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
           {/* 3. HOSTEL BOOKING */}
           <div>
-            <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 px-2 mb-1.5 flex items-center gap-1.5">
-              <Home className="w-3.5 h-3.5 text-slate-500" />
+            <div className="text-[11px] font-black uppercase tracking-wider text-sky-900/60 px-2 mb-1.5 flex items-center gap-1.5">
+              <Home className="w-3.5 h-3.5 text-sky-700" />
               <span>Accommodation & Hostels</span>
             </div>
             <div className="space-y-1">
               <button
                 onClick={() => { onOpenModal('hostel'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-amber-700 font-bold">🛏️</span> Hostel Booking & Status
-                </span>
+                <span>Hostel Booking & Status</span>
                 <span className="text-[11px] text-slate-600 font-medium bg-slate-100 px-2 py-0.5 rounded-md">
                   Block B • Rm 14
                 </span>
@@ -183,18 +161,16 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
           {/* 4. REVISION PAPERS & STUDY RESOURCES */}
           <div>
-            <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 px-2 mb-1.5 flex items-center gap-1.5">
-              <BookOpen className="w-3.5 h-3.5 text-slate-500" />
+            <div className="text-[11px] font-black uppercase tracking-wider text-sky-900/60 px-2 mb-1.5 flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-sky-700" />
               <span>Study Resources</span>
             </div>
             <div className="space-y-1">
               <button
                 onClick={() => { onOpenModal('revision'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <Download className="w-4 h-4 text-teal-700" /> Revision Papers Archive
-                </span>
+                <span>Revision Papers Archive</span>
                 <span className="text-[11px] text-slate-500">2020 - 2025</span>
               </button>
             </div>
@@ -202,38 +178,32 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
           {/* 5. CONTACT STAFF & DIRECTORY */}
           <div>
-            <div className="text-[11px] font-black uppercase tracking-wider text-slate-400 px-2 mb-1.5 flex items-center gap-1.5">
-              <PhoneCall className="w-3.5 h-3.5 text-slate-500" />
+            <div className="text-[11px] font-black uppercase tracking-wider text-sky-900/60 px-2 mb-1.5 flex items-center gap-1.5">
+              <PhoneCall className="w-3.5 h-3.5 text-sky-700" />
               <span>Staff Directory & Inquiries</span>
             </div>
             <div className="space-y-1">
               <button
                 onClick={() => { onOpenModal('contacts'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-slate-700 font-bold">👨‍💼</span> Reach Admin & HOD
-                </span>
+                <span>Reach Admin & HOD</span>
                 <span className="text-[10px] text-slate-400">Office Hours</span>
               </button>
 
               <button
                 onClick={() => { onOpenModal('contacts'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-slate-700 font-bold">👩‍🏫</span> Lecturer Directory
-                </span>
+                <span>Lecturer Directory</span>
                 <span className="text-[10px] text-slate-400">11 Staff</span>
               </button>
 
               <button
                 onClick={() => { onOpenModal('contacts'); onClose(); }}
-                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-100 text-slate-700 font-medium transition-colors"
+                className="w-full text-left flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-sky-50 hover:text-sky-950 text-slate-700 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2.5">
-                  <span className="text-teal-700 font-bold">💬</span> Message Class Rep (Sarah)
-                </span>
+                <span>Message Class Rep (Sarah)</span>
                 <span className="text-[10px] text-emerald-600 font-bold">Online</span>
               </button>
             </div>
@@ -242,9 +212,9 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 flex items-center justify-between">
+        <div className="p-4 border-t border-sky-100 bg-sky-50/50 text-xs text-slate-500 flex items-center justify-between">
           <span>KMTC PhysioConnect v1.0</span>
-          <span>React + Firebase</span>
+          <span>Portal Services</span>
         </div>
       </aside>
     </>
