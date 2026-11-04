@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, CheckCircle2, Download, FileText, Smartphone, Building } from 'lucide-react';
-import { SemesterTranscript, FeeStatement, HostelAllocation, ResourceNote } from '../types';
+import { SemesterTranscript, FeeStatement, HostelAllocation, ResourceNote, UserProfile } from '../types';
 
 interface ModalWrapperProps {
   isOpen: boolean;
@@ -362,6 +362,202 @@ export const ContactsModal: React.FC<{
           >
             Direct Chat
           </button>
+        </div>
+      </div>
+    </ModalWrapper>
+  );
+};
+
+/* 7. PROFILE DIRECT MODAL */
+export const ProfileModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  user: UserProfile;
+}> = ({ isOpen, onClose, user }) => {
+  return (
+    <ModalWrapper
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Student Profile & Biodata"
+      subtitle="KMTC Official Registrar Student Record"
+    >
+      <div className="space-y-4 text-xs">
+        <div className="flex items-center gap-4 p-4 rounded-2xl bg-blue-50 border border-blue-200">
+          <div className="w-14 h-14 rounded-2xl bg-blue-700 text-white font-black text-xl flex items-center justify-center shadow-md">
+            {user.name.substring(0, 2).toUpperCase()}
+          </div>
+          <div>
+            <h4 className="text-base font-black text-slate-900">{user.name}</h4>
+            <p className="text-blue-800 font-mono font-semibold">{user.admissionNo}</p>
+            <p className="text-slate-500 text-[11px] mt-0.5">{user.email}</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="p-3 rounded-xl bg-slate-50 border">
+            <span className="text-slate-500 font-medium block">Department / Program</span>
+            <strong className="text-slate-900 text-xs">{user.cohort}</strong>
+          </div>
+          <div className="p-3 rounded-xl bg-slate-50 border">
+            <span className="text-slate-500 font-medium block">Current Semester</span>
+            <strong className="text-slate-900 text-xs">{user.semester}</strong>
+          </div>
+          <div className="p-3 rounded-xl bg-slate-50 border">
+            <span className="text-slate-500 font-medium block">Registration Status</span>
+            <span className="inline-block mt-0.5 px-2 py-0.5 rounded font-bold text-[10px] bg-emerald-100 text-emerald-800">
+              {user.isRegistered ? 'OFFICIALLY REGISTERED' : 'PENDING'}
+            </span>
+          </div>
+          <div className="p-3 rounded-xl bg-slate-50 border">
+            <span className="text-slate-500 font-medium block">Financial Clearance</span>
+            <span className="inline-block mt-0.5 px-2 py-0.5 rounded font-bold text-[10px] bg-emerald-100 text-emerald-800">
+              {user.isCleared ? '100% CLEARED (0 BALANCE)' : 'FEES DUE'}
+            </span>
+          </div>
+        </div>
+
+        <div className="pt-2 flex justify-end">
+          <button
+            onClick={() => alert('Profile verified with KMTC Student Portal Database.')}
+            className="px-4 py-2 bg-blue-700 hover:bg-blue-800 text-white font-bold rounded-xl text-xs transition-colors"
+          >
+            Verify Records
+          </button>
+        </div>
+      </div>
+    </ModalWrapper>
+  );
+};
+
+/* 8. COURSE & SEMESTER REGISTRATION MODAL */
+export const RegistrationModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+  user: UserProfile;
+}> = ({ isOpen, onClose, user }) => {
+  return (
+    <ModalWrapper
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Semester Course Registration"
+      subtitle={`${user.semester} • Unit Enrollment Portal`}
+    >
+      <div className="space-y-4 text-xs">
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 flex items-center justify-between">
+          <div>
+            <div className="text-emerald-900 font-bold text-sm">Registration Status: Approved</div>
+            <p className="text-emerald-700 text-xs mt-0.5">All 5 core units for this term are registered.</p>
+          </div>
+          <span className="px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[11px]">
+            Active
+          </span>
+        </div>
+
+        <div className="space-y-2">
+          <h5 className="font-bold text-slate-800 uppercase tracking-wider text-[11px]">Enrolled Units</h5>
+          {[
+            { code: 'PT 201', name: 'Clinical Biomechanics & Gait Analysis', units: 3 },
+            { code: 'PT 204', name: 'Electrotherapy Principles & Waveforms', units: 3 },
+            { code: 'PT 207', name: 'Orthopaedic Rehabilitation & Lower Extremity Assessment', units: 4 },
+            { code: 'PT 209', name: 'Clinical Placement & Hospital Ward Rounds', units: 4 },
+            { code: 'PT 211', name: 'Medical Pathology & Ergonomics', units: 2 },
+          ].map((u) => (
+            <div key={u.code} className="p-3 rounded-xl bg-slate-50 border flex items-center justify-between">
+              <div>
+                <strong className="text-slate-900 font-mono mr-2">{u.code}</strong>
+                <span className="text-slate-700 font-medium">{u.name}</span>
+              </div>
+              <span className="text-slate-500 font-mono text-[11px]">{u.units} Credit Hrs</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="pt-2 flex items-center justify-between border-t border-slate-100">
+          <span className="text-slate-500">Total Credit Hours: <strong>16 Units</strong></span>
+          <button
+            onClick={() => alert('Official Registration Slip downloaded.')}
+            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center gap-1.5"
+          >
+            <Download className="w-3.5 h-3.5" /> Download Registration Slip
+          </button>
+        </div>
+      </div>
+    </ModalWrapper>
+  );
+};
+
+/* 9. ACADEMIC CALENDAR MODAL */
+export const CalendarModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+}> = ({ isOpen, onClose }) => {
+  return (
+    <ModalWrapper
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Academic Calendar & Important Dates"
+      subtitle="Current Academic Year Schedule"
+    >
+      <div className="space-y-3 text-xs">
+        {[
+          { date: '15 Jan 2026', title: 'Term 1 Commencement & Orientation', tag: 'Academic', color: 'bg-blue-100 text-blue-800' },
+          { date: '28 Feb 2026', title: 'Continuous Assessment Tests (CAT 1)', tag: 'Exams', color: 'bg-purple-100 text-purple-800' },
+          { date: '15 Mar 2026', title: 'Fee Clearance Deadline for Exams', tag: 'Finance', color: 'bg-rose-100 text-rose-800' },
+          { date: '04 Apr 2026', title: 'End of Term Practical & Theory Examinations', tag: 'Exams', color: 'bg-purple-100 text-purple-800' },
+          { date: '25 Apr 2026', title: 'Release of Term Results & Examination Board Meeting', tag: 'Results', color: 'bg-emerald-100 text-emerald-800' },
+          { date: '02 May 2026', title: 'Supplementary & Special Examinations Window', tag: 'Special', color: 'bg-amber-100 text-amber-800' },
+        ].map((item, idx) => (
+          <div key={idx} className="p-3 rounded-xl bg-slate-50 border flex items-center justify-between gap-3">
+            <div>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${item.color}`}>
+                {item.tag}
+              </span>
+              <h5 className="font-bold text-slate-900 mt-1">{item.title}</h5>
+            </div>
+            <span className="font-mono text-slate-500 font-bold shrink-0">{item.date}</span>
+          </div>
+        ))}
+      </div>
+    </ModalWrapper>
+  );
+};
+
+/* 10. SUPPLEMENTARY & SPECIAL EXAMS MODAL */
+export const SuppSpecialModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
+}> = ({ isOpen, onClose }) => {
+  return (
+    <ModalWrapper
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Supplementary & Special Examinations"
+      subtitle="Official Examination Board Clearing Desk"
+    >
+      <div className="space-y-4 text-xs">
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 flex items-center justify-between">
+          <div>
+            <div className="text-emerald-900 font-bold text-sm">Status: Good Academic Standing</div>
+            <p className="text-emerald-700 text-xs mt-0.5">You have NO pending supplementary or retake examinations.</p>
+          </div>
+          <span className="px-3 py-1 rounded-full bg-emerald-600 text-white font-bold text-[11px]">
+            0 Supps
+          </span>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-slate-50 border space-y-2">
+          <h5 className="font-bold text-slate-900 text-xs">Special Examination Requests</h5>
+          <p className="text-slate-600 leading-relaxed text-[11px]">
+            Students who missed examinations due to documented medical emergencies or compassionate reasons may apply for Special Examinations through the HOD office before the published deadline.
+          </p>
+          <div className="pt-2">
+            <button
+              onClick={() => alert('Special exam application initiated.')}
+              className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-lg text-xs"
+            >
+              Apply for Special Exam
+            </button>
+          </div>
         </div>
       </div>
     </ModalWrapper>

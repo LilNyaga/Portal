@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Check, Clock } from 'lucide-react';
+import { Check, Clock, Megaphone } from 'lucide-react';
 import { Announcement } from '../types';
 
 interface UrgentNoticeProps {
@@ -14,33 +14,34 @@ export const UrgentNotice: React.FC<UrgentNoticeProps> = ({
   const [acknowledged, setAcknowledged] = useState(false);
 
   return (
-    <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 sm:p-5 shadow-sm relative space-y-2">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="px-2.5 py-0.5 bg-rose-600 text-white rounded-md text-[10px] font-black uppercase tracking-wider animate-pulse">
-            URGENT NOTICE
+    <div className="bg-[#4d0c16] border-2 border-[#731322] rounded-2xl p-4 sm:p-5 shadow-md relative space-y-2.5 text-white">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex items-center gap-2.5">
+          <span className="px-2.5 py-1 bg-white/10 border border-white/20 text-rose-100 rounded-md text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 shrink-0">
+            <Megaphone className="w-3.5 h-3.5 text-amber-300" />
+            Important Announcement
           </span>
-          <h3 className="font-black text-sm text-slate-900">
+          <h3 className="font-black text-sm sm:text-base text-white">
             {announcement.title}
           </h3>
         </div>
-        <span className="text-xs font-mono font-semibold text-slate-500 flex items-center gap-1">
-          <Clock className="w-3.5 h-3.5" /> {announcement.createdAt}
+        <span className="text-xs font-mono font-medium text-rose-200/90 flex items-center gap-1 shrink-0">
+          <Clock className="w-3.5 h-3.5 text-rose-300" /> {announcement.createdAt}
         </span>
       </div>
 
-      <p className="text-xs text-slate-700 leading-relaxed">
+      <p className="text-xs sm:text-sm text-rose-100/95 leading-relaxed">
         {announcement.body}
       </p>
 
-      <div className="pt-2 border-t border-amber-200/80 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <span className="text-slate-600">
-          Issued by: <strong>{announcement.author}</strong> ({announcement.authorRole})
+      <div className="pt-2 border-t border-rose-900/80 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <span className="text-rose-200">
+          Issued by: <strong className="text-white">{announcement.author}</strong> ({announcement.authorRole})
         </span>
 
         <div className="flex items-center gap-2">
           {showReceipts && (
-            <span className="text-[11px] font-semibold text-amber-900 bg-amber-200 px-2.5 py-1 rounded-md">
+            <span className="text-[11px] font-semibold text-rose-100 bg-white/10 border border-white/15 px-2.5 py-1 rounded-md">
               Read by: {announcement.readCount} / {announcement.totalCohort} Students
             </span>
           )}
@@ -48,10 +49,10 @@ export const UrgentNotice: React.FC<UrgentNoticeProps> = ({
           <button
             onClick={() => setAcknowledged(true)}
             disabled={acknowledged}
-            className={`px-3 py-1 font-bold rounded-lg transition-colors text-xs flex items-center gap-1 ${
+            className={`px-3 py-1 font-bold rounded-lg transition-colors text-xs flex items-center gap-1.5 ${
               acknowledged
                 ? 'bg-emerald-600 text-white'
-                : 'bg-amber-200/80 hover:bg-amber-300 text-amber-900'
+                : 'bg-white/15 hover:bg-white/25 text-white border border-white/20'
             }`}
           >
             <Check className="w-3.5 h-3.5" />

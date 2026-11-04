@@ -18,7 +18,7 @@ export const TimetableSection: React.FC<TimetableSectionProps> = ({
   const canEdit = userRole === 'lecturer' || userRole === 'rep' || userRole === 'admin';
 
   return (
-    <div className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-sm space-y-4">
+    <div id="timetable-section" className="bg-white border border-slate-200 rounded-3xl p-5 sm:p-6 shadow-sm space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
         <div>
           <div className="flex items-center gap-2">

@@ -11,7 +11,11 @@ import {
   HowToPayModal, 
   HostelModal, 
   RevisionModal, 
-  ContactsModal 
+  ContactsModal,
+  ProfileModal,
+  RegistrationModal,
+  CalendarModal,
+  SuppSpecialModal
 } from './components/Modals';
 import { 
   INITIAL_USER, 
@@ -36,7 +40,7 @@ export function App() {
   // UI state
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeModal, setActiveModal] = useState<
-    'grades' | 'fees' | 'howToPay' | 'hostel' | 'revision' | 'contacts' | null
+    'grades' | 'fees' | 'howToPay' | 'hostel' | 'revision' | 'contacts' | 'profile' | 'registration' | 'calendar' | 'supp' | null
   >(null);
 
   // Role Switcher Handler
@@ -97,7 +101,7 @@ export function App() {
       />
 
       {/* 3. MAIN MUST-KNOW ENTRY DASHBOARD */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-4 pb-8 space-y-5">
         
         {/* Identity & Current Semester Status */}
         <HeroStatus user={user} />
@@ -129,12 +133,9 @@ export function App() {
       </main>
 
       {/* 4. FOOTER */}
-      <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div>
-            PhysioConnect • <strong>Kenya Medical Training College (Nyeri Campus)</strong>
-          </div>
-          <div>React + TypeScript + Tailwind CSS + Firebase</div>
+      <footer className="bg-sky-500 text-white py-5 text-center text-xs sm:text-sm font-medium shadow-xs">
+        <div className="max-w-7xl mx-auto px-4">
+          All rights reserved @ 2026 Kenya Medical Training (KMTC Nyeri)
         </div>
       </footer>
 
@@ -171,6 +172,28 @@ export function App() {
 
       <ContactsModal
         isOpen={activeModal === 'contacts'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <ProfileModal
+        isOpen={activeModal === 'profile'}
+        onClose={() => setActiveModal(null)}
+        user={user}
+      />
+
+      <RegistrationModal
+        isOpen={activeModal === 'registration'}
+        onClose={() => setActiveModal(null)}
+        user={user}
+      />
+
+      <CalendarModal
+        isOpen={activeModal === 'calendar'}
+        onClose={() => setActiveModal(null)}
+      />
+
+      <SuppSpecialModal
+        isOpen={activeModal === 'supp'}
         onClose={() => setActiveModal(null)}
       />
 
