@@ -74,10 +74,34 @@ export interface UnitGrade {
 }
 
 export interface SemesterTranscript {
+  academicYear: string;
+  academicSemester: string;
+  examSeriesName: string;
+  stage: string;
   semesterName: string;
   gpa: number;
   completed: boolean;
   units: UnitGrade[];
+}
+
+export interface RegisteredUnit {
+  code: string;
+  name: string;
+  units: number;
+  status: 'Registered' | 'Completed' | 'Pending';
+}
+
+export interface SemesterRegistrationRecord {
+  id: string;
+  academicYear: string;
+  academicSemester: string;
+  title: string;
+  status: 'Successful' | 'Registered' | 'Pending';
+  registrationDate?: string;
+  examPassReady: boolean;
+  examPassNumber?: string;
+  examVenue?: string;
+  units: RegisteredUnit[];
 }
 
 export interface FeeTransaction {

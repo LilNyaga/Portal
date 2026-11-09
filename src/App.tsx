@@ -5,12 +5,12 @@ import { HeroStatus } from './components/HeroStatus';
 import { UrgentNotice } from './components/UrgentNotice';
 import { QuickActionTiles } from './components/QuickActionTiles';
 import { TimetableSection } from './components/TimetableSection';
+import { RegistrationPage } from './components/registration/RegistrationPage';
+import { GradesPage } from './components/examination/GradesPage';
+import { FeesPage } from './components/fees/FeeStatementPage';
 import { 
   ProfilePage,
   TimetablePage,
-  GradesPage,
-  RegistrationPage,
-  FeesPage,
   HowToPayPage,
   HostelPage,
   CalendarPage,
@@ -25,7 +25,8 @@ import {
   INITIAL_TRANSCRIPTS, 
   INITIAL_FEE_STATEMENT, 
   INITIAL_HOSTEL,
-  INITIAL_RESOURCES 
+  INITIAL_RESOURCES,
+  INITIAL_REGISTRATION_RECORDS
 } from './services/firebase';
 import { UserRole } from './types';
 
@@ -51,6 +52,7 @@ export function App() {
   const [feeStatement] = useState(INITIAL_FEE_STATEMENT);
   const [hostel] = useState(INITIAL_HOSTEL);
   const [resources] = useState(INITIAL_RESOURCES);
+  const [registrationRecords] = useState(INITIAL_REGISTRATION_RECORDS);
 
   // Navigation State: Full Dedicated Pages (Zero Popups!)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -172,7 +174,7 @@ export function App() {
         )}
 
         {currentView === 'registration' && (
-          <RegistrationPage user={user} onBack={() => navigateTo('dashboard')} />
+          <RegistrationPage user={user} records={registrationRecords} onBack={() => navigateTo('dashboard')} />
         )}
 
         {currentView === 'fees' && (

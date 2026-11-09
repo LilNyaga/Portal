@@ -9,7 +9,8 @@ import {
   Announcement, 
   SemesterTranscript, 
   FeeStatement, 
-  HostelAllocation 
+  HostelAllocation,
+  SemesterRegistrationRecord
 } from '../types';
 
 // Firebase configuration from environment or fallback template
@@ -275,6 +276,10 @@ export const INITIAL_ANNOUNCEMENTS: Announcement[] = [
 // Historical Transcripts Since Year 1 (Joined September 2024)
 export const INITIAL_TRANSCRIPTS: SemesterTranscript[] = [
   {
+    academicYear: '2024/2025',
+    academicSemester: 'Semester 1',
+    examSeriesName: 'End of Semester Examination Series (2024)',
+    stage: 'Published & Completed',
     semesterName: 'Year 1 • Semester 1 (Sep - Dec 2024)',
     gpa: 3.75,
     completed: true,
@@ -287,6 +292,10 @@ export const INITIAL_TRANSCRIPTS: SemesterTranscript[] = [
     ]
   },
   {
+    academicYear: '2024/2025',
+    academicSemester: 'Semester 2',
+    examSeriesName: 'Mid-Year Examination Series (2025)',
+    stage: 'Published & Completed',
     semesterName: 'Year 1 • Semester 2 (Jan - Apr 2025)',
     gpa: 3.65,
     completed: true,
@@ -299,6 +308,10 @@ export const INITIAL_TRANSCRIPTS: SemesterTranscript[] = [
     ]
   },
   {
+    academicYear: '2024/2025',
+    academicSemester: 'Semester 3',
+    examSeriesName: 'End of Year Final Examination Series (2025)',
+    stage: 'Published & Completed',
     semesterName: 'Year 1 • Semester 3 (May - Aug 2025)',
     gpa: 3.80,
     completed: true,
@@ -310,6 +323,10 @@ export const INITIAL_TRANSCRIPTS: SemesterTranscript[] = [
     ]
   },
   {
+    academicYear: '2025/2026',
+    academicSemester: 'Semester 1',
+    examSeriesName: 'Main Examination Series (2025)',
+    stage: 'Provisional Results Released',
     semesterName: 'Year 2 • Semester 1 (Current Session 2025/2026)',
     gpa: 3.68,
     completed: true,
@@ -319,6 +336,96 @@ export const INITIAL_TRANSCRIPTS: SemesterTranscript[] = [
       { unitCode: 'PT 207', unitName: 'Orthopaedic Rehabilitation & Lower Extremity', score: 70, grade: 'A', passed: true },
       { unitCode: 'PT 209', unitName: 'Clinical Placement & Hospital Ward Rounds', score: 82, grade: 'A', passed: true },
       { unitCode: 'PT 211', unitName: 'Medical Pathology & Ergonomics', score: 67, grade: 'B+', passed: true },
+    ]
+  }
+];
+
+export const INITIAL_REGISTRATION_RECORDS: SemesterRegistrationRecord[] = [
+  {
+    id: 'reg_y2_s1',
+    academicYear: '2025/2026',
+    academicSemester: 'Semester 1',
+    title: 'Year 2 • Semester 1 (Current Session 2025/2026)',
+    status: 'Successful',
+    registrationDate: '08 Sep 2025',
+    examPassReady: true,
+    examPassNumber: 'KMTC/NYR/EX/2025/0842',
+    examVenue: 'Main Examination Hall A & Physio Skills Lab',
+    units: [
+      { code: 'PT 201', name: 'Clinical Biomechanics & Gait Analysis', units: 3, status: 'Registered' },
+      { code: 'PT 204', name: 'Electrotherapy Principles & Waveforms', units: 3, status: 'Registered' },
+      { code: 'PT 207', name: 'Orthopaedic Rehabilitation & Lower Extremity', units: 4, status: 'Registered' },
+      { code: 'PT 209', name: 'Clinical Placement & Hospital Ward Rounds', units: 4, status: 'Registered' },
+      { code: 'PT 211', name: 'Medical Pathology & Ergonomics', units: 2, status: 'Registered' },
+    ]
+  },
+  {
+    id: 'reg_y1_s3',
+    academicYear: '2024/2025',
+    academicSemester: 'Semester 3',
+    title: 'Year 1 • Semester 3 (May - Aug 2025)',
+    status: 'Successful',
+    registrationDate: '05 May 2025',
+    examPassReady: true,
+    examPassNumber: 'KMTC/NYR/EX/2025/0319',
+    examVenue: 'Lecture Theatre 1',
+    units: [
+      { code: 'PT 111', name: 'Principles of Exercise Therapy & Movement Science', units: 4, status: 'Completed' },
+      { code: 'PT 112', name: 'Basic Electrotherapy Modalities (Thermal & Cryo)', units: 3, status: 'Completed' },
+      { code: 'PT 113', name: 'Kinesiology & Human Movement Analysis', units: 4, status: 'Completed' },
+      { code: 'PT 114', name: 'Introduction to Clinical Hospital Placement I', units: 4, status: 'Completed' },
+    ]
+  },
+  {
+    id: 'reg_y1_s2',
+    academicYear: '2024/2025',
+    academicSemester: 'Semester 2',
+    title: 'Year 1 • Semester 2 (Jan - Apr 2025)',
+    status: 'Successful',
+    registrationDate: '06 Jan 2025',
+    examPassReady: true,
+    examPassNumber: 'KMTC/NYR/EX/2025/0112',
+    examVenue: 'Lecture Theatre 2',
+    units: [
+      { code: 'PT 106', name: 'Gross Human Anatomy II (Lower Extremity & Pelvis)', units: 4, status: 'Completed' },
+      { code: 'PT 107', name: 'Human Physiology II (Musculoskeletal)', units: 3, status: 'Completed' },
+      { code: 'PT 108', name: 'Pathology & Microbiology in Rehabilitation', units: 3, status: 'Completed' },
+      { code: 'PT 109', name: 'Pharmacology for Physiotherapists', units: 3, status: 'Completed' },
+      { code: 'PT 110', name: 'Clinical Assessment & Palpation Skills', units: 4, status: 'Completed' },
+    ]
+  },
+  {
+    id: 'reg_y1_s1',
+    academicYear: '2024/2025',
+    academicSemester: 'Semester 1',
+    title: 'Year 1 • Semester 1 (Sep - Dec 2024)',
+    status: 'Successful',
+    registrationDate: '02 Sep 2024',
+    examPassReady: true,
+    examPassNumber: 'KMTC/NYR/EX/2024/0951',
+    examVenue: 'Examination Hall B',
+    units: [
+      { code: 'PT 101', name: 'Gross Human Anatomy I (Upper Extremity & Thorax)', units: 4, status: 'Completed' },
+      { code: 'PT 102', name: 'Human Physiology I (Cardiovascular & Neuro)', units: 4, status: 'Completed' },
+      { code: 'PT 103', name: 'Foundations of Physiotherapy & Ethics', units: 3, status: 'Completed' },
+      { code: 'PT 104', name: 'First Aid, BLS & Patient Safety', units: 3, status: 'Completed' },
+      { code: 'PT 105', name: 'Medical Communication & Clinical Documentation', units: 2, status: 'Completed' },
+    ]
+  },
+  {
+    id: 'reg_y2_s2',
+    academicYear: '2025/2026',
+    academicSemester: 'Semester 2',
+    title: 'Year 2 • Semester 2 (Upcoming Session)',
+    status: 'Pending',
+    registrationDate: undefined,
+    examPassReady: false,
+    examVenue: 'Main Examination Hall A',
+    units: [
+      { code: 'PT 215', name: 'Neurological Rehabilitation & Stroke Management', units: 4, status: 'Pending' },
+      { code: 'PT 218', name: 'Paediatric Physiotherapy & Developmental Assessment', units: 3, status: 'Pending' },
+      { code: 'PT 220', name: 'Community-Based Rehabilitation & Disability Inclusion', units: 3, status: 'Pending' },
+      { code: 'PT 222', name: 'Hospital Internship & Clinical Practical II', units: 5, status: 'Pending' },
     ]
   }
 ];
