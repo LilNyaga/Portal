@@ -17,16 +17,16 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({
   badge,
 }) => {
   return (
-    <div className="bg-white rounded-3xl p-4 sm:p-7 shadow-xs border border-slate-200/90 space-y-5 animate-fadeIn">
+    <div className="bg-white rounded-none p-0 sm:p-0 shadow-none border-0 space-y-0 animate-fadeIn">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={onBack}
-            className="flex items-center justify-center w-10 h-10 rounded-xl border border-rose-200 bg-rose-50 text-[#6f1825] hover:text-rose-950 hover:bg-rose-100 transition-colors shadow-2xs cursor-pointer select-none shrink-0"
+            className="flex items-center justify-center w-9 h-9 rounded-full text-[#6f1825] hover:bg-[#F8E9DC] transition-colors cursor-pointer select-none shrink-0"
             aria-label="Back to Dashboard"
           >
-            <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
           </button>
 
           <div>

@@ -16,7 +16,7 @@ interface SidebarDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   user?: UserProfile;
-  onOpenModal: (modalName: 'grades' | 'fees' | 'howToPay' | 'hostel' | 'revision' | 'contacts' | 'profile' | 'registration' | 'calendar' | 'supp' | 'timetable' | any) => void;
+  onOpenModal: (modalName: 'grades' | 'fees' | 'howToPay' | 'hostel' | 'revision' | 'contacts' | 'profile' | 'registration' | 'semesterStatus' | 'leaveDeferment' | 'readmission' | 'calendar' | 'supp' | 'timetable' | any) => void;
 }
 
 export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
@@ -193,10 +193,7 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
             {openSections.registration && (
               <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
                 <button
-                  onClick={() => {
-                    alert('Semester Status: Year 2 Term 1 (Session 2025/2026)\nDepartment: Physiotherapy\nRegistration Status: Active & Enrolled');
-                    onClose();
-                  }}
+                  onClick={() => { onOpenModal('semesterStatus'); onClose(); }}
                   className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   Semester Status
@@ -210,20 +207,14 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 </button>
 
                 <button
-                  onClick={() => {
-                    alert('Academic Leave / Deferment Window:\nApplications for compassionate or medical deferment must be submitted at least 2 weeks prior to end-of-term examinations through the Academic Registrar.');
-                    onClose();
-                  }}
+                  onClick={() => { onOpenModal('leaveDeferment'); onClose(); }}
                   className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   Leave / Deferment
                 </button>
 
                 <button
-                  onClick={() => {
-                    alert('Readmission Desk:\nStudents resuming studies after an approved deferment or academic leave can submit their clearance and resumption form here.');
-                    onClose();
-                  }}
+                  onClick={() => { onOpenModal('readmission'); onClose(); }}
                   className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   Readmission

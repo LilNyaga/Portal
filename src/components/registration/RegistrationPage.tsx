@@ -89,6 +89,145 @@ export const RegisteredUnitsPage: React.FC<{
   );
 };
 
+export const SemesterStatusPage: React.FC<{
+  user: UserProfile;
+  onBack: () => void;
+  onOpenUnits: () => void;
+}> = ({ onBack, onOpenUnits }) => {
+  const semesterStatus = {
+    academicYear: '2025/2026',
+    semester: 'Year 2 Term 1',
+    department: 'Physiotherapy',
+    status: 'Active',
+    registrationStatus: 'Registered',
+    invoiceStatus: 'Invoiced',
+    notes: 'Units already assigned for the current semester.',
+  };
+
+  const cards = [
+    { label: 'Academic Year', value: semesterStatus.academicYear },
+    { label: 'Semester', value: semesterStatus.semester },
+    { label: 'Department', value: semesterStatus.department },
+    { label: 'Status', value: semesterStatus.status },
+    { label: 'Registration Status', value: semesterStatus.registrationStatus },
+    { label: 'Invoice Status', value: semesterStatus.invoiceStatus },
+  ];
+
+  return (
+    <PageWrapper
+      onBack={onBack}
+      title="Semester Status"
+      badge={undefined}
+    >
+      <div className="space-y-5 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 max-w-4xl mx-auto">
+          {cards.map((card) => (
+            <div key={card.label} className="rounded-2xl border border-emerald-300 bg-emerald-600 p-3 shadow-sm w-full max-w-[260px] mx-auto text-center">
+              <div className="text-[10px] uppercase tracking-wide text-emerald-50 font-bold">{card.label}</div>
+              <div className="mt-2 text-sm font-black text-white">{card.value}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-2xl border border-[#E7D7C6] bg-[#FFFDF9] p-3 max-w-4xl mx-auto shadow-sm">
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={onOpenUnits}
+              className="px-4 py-2.5 rounded-xl bg-[#6f1825] text-white text-[11px] font-black hover:bg-[#59131e] transition-colors"
+            >
+              View Units
+            </button>
+          </div>
+        </div>
+      </div>
+    </PageWrapper>
+  );
+};
+
+export const LeaveDefermentPage: React.FC<{
+  onBack: () => void;
+}> = ({ onBack }) => {
+  const rows: Array<Record<string, string | null>> = [];
+  const columns = [
+    'Current Class',
+    'Stage',
+    'Academic Year',
+    'Leave Type',
+    'From-To',
+    'Reason',
+    'Status',
+  ];
+
+  return (
+    <PageWrapper
+      onBack={onBack}
+      title="Leave / Deferment"
+      subtitle="Academic leave and deferment requests"
+      badge={undefined}
+    >
+      <div className="rounded-2xl border border-[#E7D7C6] overflow-hidden bg-[#FFFDF9] shadow-sm max-w-5xl mx-auto">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="bg-[#F7E8D8] text-[#4B2A2C] font-extrabold uppercase tracking-wider text-[11px]">
+                {columns.map((column) => (
+                  <th key={column} className="py-3.5 px-4 whitespace-nowrap border-b border-[#E7D7C6]">{column}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.length > 0 ? (
+                rows.map((row, idx) => (
+                  <tr key={idx} className="border-t border-[#F0E4D5] hover:bg-[#FFF8F1]">
+                    {columns.map((column) => (
+                      <td key={`${idx}-${column}`} className="py-3.5 px-4 text-slate-700 align-top">
+                        {row[column] ?? '—'}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={columns.length} className="py-12 px-4 text-center text-slate-500 bg-white">
+                    No leave or deferment records available.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </PageWrapper>
+  );
+};
+
+export const ReadmissionPage: React.FC<{
+  onBack: () => void;
+}> = ({ onBack }) => {
+  return (
+    <PageWrapper
+      onBack={onBack}
+      title="Readmission"
+      subtitle="Resume studies after approved leave or deferment"
+      badge={undefined}
+    >
+      <div className="max-w-[220px] mx-auto pt-1">
+        <div className="rounded-xl border border-[#E7D7C6] bg-[#FFFDF9] p-2.5 shadow-sm">
+          <div className="flex justify-center">
+            <button
+              type="button"
+              className="w-full max-w-[150px] px-2.5 py-1.5 rounded-md bg-[#6f1825] text-white text-[10px] font-black hover:bg-[#59131e] transition-colors shadow-sm"
+            >
+              Create Request
+            </button>
+          </div>
+        </div>
+      </div>
+    </PageWrapper>
+  );
+};
+
 export const RegistrationPage: React.FC<{
   user: UserProfile;
   records?: SemesterRegistrationRecord[];
@@ -167,9 +306,9 @@ export const RegistrationPage: React.FC<{
                         <span
                           className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-black border ${
                             isSuccessful
-                              ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                              ? 'bg-emerald-600 text-white border-emerald-500'
                               : isRegistered
-                              ? 'bg-teal-100 text-teal-900 border-teal-300'
+                              ? 'bg-emerald-600 text-white border-emerald-500'
                               : 'bg-amber-100 text-amber-900 border-amber-300'
                           }`}
                         >

@@ -4,7 +4,12 @@ import { SidebarDrawer } from './components/SidebarDrawer';
 import { HeroStatus } from './components/HeroStatus';
 import { UrgentNotice } from './components/UrgentNotice';
 import { QuickActionTiles } from './components/QuickActionTiles';
-import { RegistrationPage } from './components/registration/RegistrationPage';
+import {
+  RegistrationPage,
+  SemesterStatusPage,
+  LeaveDefermentPage,
+  ReadmissionPage,
+} from './components/registration/RegistrationPage';
 import { GradesPage } from './components/examination/GradesPage';
 import { SuppSpecialPage } from './components/examination/SuppSpecialPage';
 import { FeesPage } from './components/fees/FeeStatementPage';
@@ -39,6 +44,9 @@ export type PageView =
   | 'timetable'
   | 'grades'
   | 'registration'
+  | 'semesterStatus'
+  | 'leaveDeferment'
+  | 'readmission'
   | 'fees'
   | 'howToPay'
   | 'hostel'
@@ -123,8 +131,8 @@ export function App() {
       {/* 3. MAIN CONTAINER: DASHBOARD OR DEDICATED FULL PAGE */}
       <main className={`flex-1 w-full transition-all duration-300 ${
         currentView === 'howToPay'
-          ? 'max-w-6xl mx-auto px-4 sm:px-6 pt-2 pb-8'
-          : 'max-w-6xl mx-auto px-3 sm:px-6 pt-3 pb-6 space-y-3.5'
+          ? 'max-w-6xl mx-auto px-4 sm:px-6 pt-0 pb-8'
+          : 'max-w-6xl mx-auto px-3 sm:px-6 pt-0 pb-6 space-y-0'
       } ${
         isMenuOpen ? 'filter blur-[4px] pointer-events-none select-none' : ''
       }`}>
@@ -168,6 +176,22 @@ export function App() {
 
         {currentView === 'registration' && (
           <RegistrationPage user={user} records={registrationRecords} onBack={() => navigateTo('dashboard')} />
+        )}
+
+        {currentView === 'semesterStatus' && (
+          <SemesterStatusPage
+            user={user}
+            onBack={() => navigateTo('dashboard')}
+            onOpenUnits={() => navigateTo('registration')}
+          />
+        )}
+
+        {currentView === 'leaveDeferment' && (
+          <LeaveDefermentPage onBack={() => navigateTo('dashboard')} />
+        )}
+
+        {currentView === 'readmission' && (
+          <ReadmissionPage onBack={() => navigateTo('dashboard')} />
         )}
 
         {currentView === 'fees' && (
