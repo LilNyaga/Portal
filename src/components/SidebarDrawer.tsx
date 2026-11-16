@@ -118,16 +118,6 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                 >
                   Fee Statement
                 </button>
-
-                <button
-                  onClick={() => {
-                    alert('Downloading Official KMTC Physiotherapy Fee Structure 2025/2026 (PDF)...');
-                    onClose();
-                  }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Fee Structure
-                </button>
               </div>
             )}
           </div>
@@ -156,17 +146,14 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
             {openSections.courses && (
               <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
                 <button
-                  onClick={() => { onOpenModal('registration'); onClose(); }}
+                  onClick={() => { onOpenModal('myCourse'); onClose(); }}
                   className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   My Course
                 </button>
 
                 <button
-                  onClick={() => {
-                    alert('Course Transfer Window: Applications for inter-department or campus transfers open at the start of Term 2 through the Academic Registrar.');
-                    onClose();
-                  }}
+                  onClick={() => { onOpenModal('courseTransfer'); onClose(); }}
                   className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   Course Transfer

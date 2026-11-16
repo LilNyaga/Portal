@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { 
   UserProfile, 
@@ -10,7 +10,8 @@ import {
   SemesterTranscript, 
   FeeStatement, 
   HostelAllocation,
-  SemesterRegistrationRecord
+  SemesterRegistrationRecord,
+  SuppSpecialExam
 } from '../types';
 
 // Firebase configuration from environment or fallback template
@@ -547,3 +548,94 @@ export const INITIAL_HOSTEL: HostelAllocation = {
     'David Otieno (PT/2024/051) • Bed 4 (Lower Bunk)'
   ]
 };
+
+// Supplementary & Special Examination Backend Registry
+export const INITIAL_SUPP_SPECIAL_EXAMS: SuppSpecialExam[] = [
+  {
+    id: 'supp_001',
+    unitCode: 'PT 208',
+    unitName: 'Clinical Neuroanatomy & Neuropathology',
+    academicYear: '2025/2026',
+    semester: 'Year 2 • Semester 1',
+    examType: 'Special',
+    examDate: '04 May 2026',
+    examTime: '09:00 AM - 12:00 PM',
+    venue: 'Main Examination Hall A',
+    seatNumber: 'Seat 18',
+    status: 'Approved',
+    reason: 'Approved Medical Exemption (Dean of Clinical Medicine Clearance)',
+    fee: 0,
+    feeStatus: 'Waived',
+    lecturer: 'Dr. K. Ndegwa',
+    paperCode: 'EXAM/2026/SP-208'
+  },
+  {
+    id: 'supp_002',
+    unitCode: 'PT 108',
+    unitName: 'Pathology & Microbiology in Rehabilitation',
+    academicYear: '2024/2025',
+    semester: 'Year 1 • Semester 2',
+    examType: 'Supplementary',
+    examDate: '06 May 2026',
+    examTime: '02:00 PM - 05:00 PM',
+    venue: 'Physiotherapy Skills Lab 2',
+    seatNumber: 'Seat 09',
+    status: 'Scheduled',
+    reason: 'Continuous Assessment Retake (Supplementary Sitting)',
+    fee: 1000,
+    feeStatus: 'Paid',
+    lecturer: 'Dr. Kariuki',
+    paperCode: 'EXAM/2026/SUPP-108'
+  },
+  {
+    id: 'supp_003',
+    unitCode: 'PT 212',
+    unitName: 'Pharmacology & Therapeutics in Physiotherapy',
+    academicYear: '2025/2026',
+    semester: 'Year 2 • Semester 1',
+    examType: 'Special',
+    examDate: '08 May 2026',
+    examTime: '09:00 AM - 12:00 PM',
+    venue: 'Lecture Theatre 1',
+    seatNumber: 'Seat 42',
+    status: 'Scheduled',
+    reason: 'Hospital Ward Placement Duty Clash (Authorized Special Exam)',
+    fee: 0,
+    feeStatus: 'Waived',
+    lecturer: 'Madam J. Wanjiku',
+    paperCode: 'EXAM/2026/SP-212'
+  },
+  {
+    id: 'supp_004',
+    unitCode: 'PT 103',
+    unitName: 'Foundations of Physiotherapy & Professional Ethics',
+    academicYear: '2024/2025',
+    semester: 'Year 1 • Semester 1',
+    examType: 'Supplementary',
+    examDate: '15 Jan 2025',
+    examTime: '09:00 AM - 12:00 PM',
+    venue: 'Main Examination Hall B',
+    seatNumber: 'Seat 31',
+    status: 'Completed',
+    reason: 'Academic Resit Sitting',
+    fee: 1000,
+    feeStatus: 'Paid',
+    lecturer: 'Mr. Ochieng',
+    paperCode: 'EXAM/2025/SUPP-103'
+  }
+];
+
+// Helper to load Supplementary & Special Exams from Firestore or fallback datastore
+export async function getSuppSpecialExamsFromBackend(): Promise<SuppSpecialExam[]> {
+  try {
+    const colRef = collection(db, 'supp_special_exams');
+    const snapshot = await getDocs(colRef);
+    if (!snapshot.empty) {
+      return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as SuppSpecialExam));
+    }
+  } catch (err) {
+    // Offline or demo environment, fallback smoothly
+  }
+  return INITIAL_SUPP_SPECIAL_EXAMS;
+}
+

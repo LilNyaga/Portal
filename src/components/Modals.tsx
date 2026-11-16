@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
 import { 
   ArrowLeft,
-  CheckCircle2, 
   Download, 
-  Smartphone, 
-  Building, 
   User, 
   Calendar as CalendarIcon, 
   MapPin, 
   ShieldCheck, 
-  Check, 
   AlertCircle, 
   ChevronLeft, 
   ChevronRight, 
-  Home, 
   Phone, 
   Mail,
   GraduationCap,
@@ -953,146 +948,73 @@ export const RegistrationPage: React.FC<{
 /* =========================================================================
    6. HOW TO PAY PAGE
    ========================================================================= */
-export const HowToPayPage: React.FC<{
-  onBack: () => void;
-}> = ({ onBack }) => {
-  return (
-    <PageWrapper
-      onBack={onBack}
-      title="Official Payment Channels & Instructions"
-      subtitle="KMTC Nyeri Campus Tuition & Institutional Fees"
-    >
-      <div className="space-y-4 text-xs text-slate-700">
-        <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-300 space-y-2.5">
-          <h4 className="font-bold text-emerald-950 text-sm sm:text-base flex items-center gap-2">
-            <Smartphone className="w-5 h-5 text-emerald-800" /> Safaricom M-Pesa (Auto-Reconciled)
-          </h4>
-          <ol className="list-decimal list-inside space-y-1.5 text-slate-800 text-xs sm:text-sm">
-            <li>Go to M-Pesa on your phone and select <strong>Lipa na M-Pesa</strong></li>
-            <li>Select <strong>Pay Bill</strong></li>
-            <li>Enter Business Number: <strong className="text-emerald-950 font-mono">964150</strong></li>
-            <li>Enter Account Number: <strong className="text-emerald-950 font-mono">PT/2024/048</strong></li>
-            <li>Enter Amount and your Secret M-Pesa PIN to complete</li>
-          </ol>
-        </div>
-
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-          <h4 className="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
-            <Building className="w-5 h-5 text-slate-700" /> National Bank of Kenya (NBK) Branch Counter
-          </h4>
-          <p className="text-xs sm:text-sm">Bank Branch: <strong>Nyeri Branch</strong></p>
-          <p className="text-xs sm:text-sm">Account Name: <strong>Kenya Medical Training College</strong></p>
-          <p className="text-xs sm:text-sm">Account Number: <strong className="font-mono">01003086514000</strong></p>
-          <p className="text-xs text-slate-500 pt-1">
-            Present the stamped bank counter slip to the KMTC Finance Office for instant ledger confirmation.
-          </p>
-        </div>
-      </div>
-    </PageWrapper>
-  );
-};
+export { HowToPayPage } from "./fees/HowToPayPage";
 
 /* =========================================================================
    7. HOSTEL ROOM PAGE
    ========================================================================= */
 export const HostelPage: React.FC<{
-  hostel: HostelAllocation;
+  hostel?: HostelAllocation;
   onBack: () => void;
-}> = ({ hostel, onBack }) => {
+}> = ({ onBack }) => {
+  const hostelRooms = [
+    { id: 1, name: 'KMTC Main Campus Hostel', block: 'Block A (Men)', roomNo: 'Room 101', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: '2 Vacant Beds', fee: 'KES 8,500', status: 'Available' },
+    { id: 2, name: 'KMTC Main Campus Hostel', block: 'Block A (Men)', roomNo: 'Room 102', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: '1 Vacant Bed', fee: 'KES 8,500', status: 'Available' },
+    { id: 3, name: 'KMTC Main Campus Hostel', block: 'Block B (Physiotherapy Wing)', roomNo: 'Room 14', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: 'Fully Booked', fee: 'KES 8,500', status: 'Occupied' },
+    { id: 4, name: 'KMTC Main Campus Hostel', block: 'Block B (Physiotherapy Wing)', roomNo: 'Room 15', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: '3 Vacant Beds', fee: 'KES 8,500', status: 'Available' },
+    { id: 5, name: 'KMTC Senior Hostel', block: 'Block C (Women)', roomNo: 'Room 201', type: '2-Bed Self-Contained', capacity: '2 Beds', available: '1 Vacant Bed', fee: 'KES 12,000', status: 'Available' },
+    { id: 6, name: 'KMTC Senior Hostel', block: 'Block C (Women)', roomNo: 'Room 202', type: '2-Bed Self-Contained', capacity: '2 Beds', available: 'Fully Booked', fee: 'KES 12,000', status: 'Occupied' },
+    { id: 7, name: 'KMTC Annex Hostels', block: 'Block D (Postgraduate Wing)', roomNo: 'Room 305', type: 'Single Executive Cubicle', capacity: '1 Bed', available: 'Fully Booked', fee: 'KES 15,000', status: 'Occupied' },
+    { id: 8, name: 'KMTC Annex Hostels', block: 'Block D (Postgraduate Wing)', roomNo: 'Room 306', type: 'Single Executive Cubicle', capacity: '1 Bed', available: '1 Vacant Bed', fee: 'KES 15,000', status: 'Available' },
+  ];
+
   return (
     <PageWrapper
       onBack={onBack}
-      title="Hostel Allocation, Room Booking & Bed Assignment"
-      subtitle="KMTC Nyeri Campus Student Accommodation Directorate"
+      title="Book Hostels"
     >
-      <div className="space-y-4 text-xs">
-        {/* Current Allocation Hero Banner */}
-        <div className="p-5 rounded-2xl bg-amber-50 border border-amber-300 space-y-3">
-          <div className="flex justify-between items-center">
-            <span className="text-xs font-black text-amber-950 uppercase tracking-wider">
-              Academic Year: {hostel.academicYear || '2025/2026 (Year 2, Semester 1)'}
-            </span>
-            <span className="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-black">
-              ALLOCATION CONFIRMED
-            </span>
-          </div>
-          <div className="text-base sm:text-xl font-black text-slate-900">
-            {hostel.hostelName} • {hostel.block}
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-            <div className="bg-white p-3 rounded-xl border border-amber-200">
-              <span className="text-slate-500 text-[11px] block">Allocated Room</span>
-              <strong className="text-slate-900 font-mono text-sm">{hostel.roomNumber}</strong>
-            </div>
-            <div className="bg-white p-3 rounded-xl border border-amber-200">
-              <span className="text-slate-500 text-[11px] block">Allocated Bed</span>
-              <strong className="text-[#6f1825] font-black text-sm">{hostel.bedNumber} ({hostel.bedType || 'Lower Bunk'})</strong>
-            </div>
-            <div className="bg-white p-3 rounded-xl border border-amber-200">
-              <span className="text-slate-500 text-[11px] block">Room Type</span>
-              <strong className="text-slate-900 text-sm">{hostel.roomType || '4-Bed Cubicle'}</strong>
-            </div>
-            <div className="bg-white p-3 rounded-xl border border-amber-200">
-              <span className="text-slate-500 text-[11px] block">Check-in Date</span>
-              <strong className="text-slate-900 text-sm">{hostel.checkInDate || '15 Jan 2026'}</strong>
-            </div>
-          </div>
-          <p className="text-xs text-slate-600 pt-1">Hall Warden: <strong className="text-slate-900">{hostel.wardenName}</strong></p>
-        </div>
-
-        {/* Roommates & Bed Occupants */}
-        <div className="space-y-2.5">
-          <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
-            <User className="w-4 h-4 text-[#6f1825]" /> Roommates & Bed Spaces (Room 14)
-          </h5>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {(hostel.roommates || [
-              'Brian Kiprono (PT/2024/012) • Bed 1 (Upper Bunk)',
-              'Lemayian [You] (PT/2024/048) • Bed 2 (Lower Bunk)',
-              'Kevin Mwangi (PT/2024/033) • Bed 3 (Upper Bunk)',
-              'David Otieno (PT/2024/051) • Bed 4 (Lower Bunk)',
-            ]).map((rm, i) => (
-              <div key={i} className={`p-3 rounded-xl border flex items-center gap-2.5 ${
-                rm.includes('[You]') ? 'bg-amber-50/80 border-amber-300' : 'bg-slate-50 border-slate-200'
-              }`}>
-                <div className="w-7 h-7 rounded-lg bg-slate-200 text-slate-700 font-bold flex items-center justify-center text-xs">
-                  {i + 1}
-                </div>
-                <span className="text-xs font-bold text-slate-900">{rm}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Amenities */}
-        <div className="space-y-2.5">
-          <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
-            <Home className="w-4 h-4 text-[#6f1825]" /> Room Facilities & Amenities
-          </h5>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-slate-700">
-            {(hostel.amenities || [
-              'Individual Wooden Study Desk & Ergonomic Chair',
-              'Heavy-Duty Steel Padlockable Locker',
-              'Campus High-Speed Wi-Fi Hotspot',
-              'Solar Water Heating in Bathrooms',
-            ]).map((amenity, i) => (
-              <div key={i} className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 flex items-center gap-2">
-                <Check className="w-4 h-4 text-emerald-700 shrink-0" />
-                <span className="text-xs">{amenity}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Actions */}
-        <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100">
-          <span className="text-xs text-slate-400">Term 2 Booking Window opens 01 Dec 2026</span>
-          <button
-            onClick={() => alert('Official Hostel Room & Bed Clearance Slip (PDF) downloaded.')}
-            className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
-          >
-            <Download className="w-4 h-4" /> Download Bed Clearance Slip (PDF)
-          </button>
+      <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-2xs">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr className="bg-slate-100 text-slate-800 font-extrabold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+                <th className="py-3 px-4">#</th>
+                <th className="py-3 px-4">Hostel Name</th>
+                <th className="py-3 px-4">Block</th>
+                <th className="py-3 px-4">Room No</th>
+                <th className="py-3 px-4">Room Type</th>
+                <th className="py-3 px-4">Capacity</th>
+                <th className="py-3 px-4">Available Spaces</th>
+                <th className="py-3 px-4">Semester Fee</th>
+                <th className="py-3 px-4">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {hostelRooms.map((room) => (
+                <tr key={room.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="py-3.5 px-4 font-bold text-slate-500">{room.id}</td>
+                  <td className="py-3.5 px-4 font-bold text-slate-900">{room.name}</td>
+                  <td className="py-3.5 px-4 text-slate-700">{room.block}</td>
+                  <td className="py-3.5 px-4 font-mono font-bold text-slate-800">{room.roomNo}</td>
+                  <td className="py-3.5 px-4 text-slate-600">{room.type}</td>
+                  <td className="py-3.5 px-4 text-slate-600">{room.capacity}</td>
+                  <td className="py-3.5 px-4 font-semibold text-slate-700">{room.available}</td>
+                  <td className="py-3.5 px-4 font-mono font-bold text-slate-900">{room.fee}</td>
+                  <td className="py-3.5 px-4">
+                    <span
+                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        room.status === 'Available'
+                          ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                          : 'bg-slate-100 text-slate-600 border border-slate-200'
+                      }`}
+                    >
+                      {room.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </PageWrapper>
@@ -1100,58 +1022,111 @@ export const HostelPage: React.FC<{
 };
 
 /* =========================================================================
-   8. ACADEMIC CALENDAR PAGE
+   8. ACADEMIC CALENDAR PAGE (KENYAN CALENDAR WITH NATIONAL DAYS)
    ========================================================================= */
+interface KenyaHoliday {
+  day: number;
+  month: number; // 0-indexed (0 = Jan, 11 = Dec)
+  name: string;
+  type: string;
+}
+
+const KENYA_NATIONAL_DAYS_2026: KenyaHoliday[] = [
+  { day: 1, month: 0, name: "New Year's Day", type: 'Public Holiday' },
+  { day: 21, month: 2, name: 'Eid al-Fitr', type: 'Islamic Public Holiday (Tentative)' },
+  { day: 3, month: 3, name: 'Good Friday', type: 'Christian Public Holiday' },
+  { day: 6, month: 3, name: 'Easter Monday', type: 'Christian Public Holiday' },
+  { day: 1, month: 4, name: 'Labour Day', type: 'National Public Holiday' },
+  { day: 27, month: 4, name: 'Eid al-Adha', type: 'Islamic Public Holiday (Tentative)' },
+  { day: 1, month: 5, name: 'Madaraka Day', type: 'National Day (Self-Rule Day)' },
+  { day: 10, month: 9, name: 'Mazingira Day', type: 'National Conservation & Heritage Day' },
+  { day: 20, month: 9, name: 'Mashujaa Day', type: "National Heroes' Day" },
+  { day: 12, month: 11, name: 'Jamhuri Day', type: 'Republic & Independence Day' },
+  { day: 25, month: 11, name: 'Christmas Day', type: 'Christian Public Holiday' },
+  { day: 26, month: 11, name: 'Utu Day (Boxing Day)', type: 'National Public Holiday' },
+];
+
+const CALENDAR_MONTHS_2026 = [
+  { index: 0, name: 'January 2026', shortName: 'Jan', days: 31, startDayOfWeek: 4 },
+  { index: 1, name: 'February 2026', shortName: 'Feb', days: 28, startDayOfWeek: 0 },
+  { index: 2, name: 'March 2026', shortName: 'Mar', days: 31, startDayOfWeek: 0 },
+  { index: 3, name: 'April 2026', shortName: 'Apr', days: 30, startDayOfWeek: 3 },
+  { index: 4, name: 'May 2026', shortName: 'May', days: 31, startDayOfWeek: 5 },
+  { index: 5, name: 'June 2026', shortName: 'Jun', days: 30, startDayOfWeek: 1 },
+  { index: 6, name: 'July 2026', shortName: 'Jul', days: 31, startDayOfWeek: 3 },
+  { index: 7, name: 'August 2026', shortName: 'Aug', days: 31, startDayOfWeek: 6 },
+  { index: 8, name: 'September 2026', shortName: 'Sep', days: 30, startDayOfWeek: 2 },
+  { index: 9, name: 'October 2026', shortName: 'Oct', days: 31, startDayOfWeek: 4 },
+  { index: 10, name: 'November 2026', shortName: 'Nov', days: 30, startDayOfWeek: 0 },
+  { index: 11, name: 'December 2026', shortName: 'Dec', days: 31, startDayOfWeek: 2 },
+];
+
 export const CalendarPage: React.FC<{
   onBack: () => void;
 }> = ({ onBack }) => {
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0); // 0 = Jan 2026
 
-  const calendarMonths = [
-    { name: 'January 2026', days: 31, startDayOfWeek: 4 }, // Thu
-    { name: 'February 2026', days: 28, startDayOfWeek: 0 }, // Sun
-    { name: 'March 2026', days: 31, startDayOfWeek: 0 },
-    { name: 'April 2026', days: 30, startDayOfWeek: 3 },
-  ];
-
-  const month = calendarMonths[currentMonthIndex];
-
-  const events = [
-    { date: '15 Jan 2026', title: 'Term 1 Commencement & Clinical Orientation', tag: 'Academic', color: 'bg-blue-100 text-blue-800 border-blue-200' },
-    { date: '28 Feb 2026', title: 'Continuous Assessment Tests (CAT 1)', tag: 'Exams', color: 'bg-purple-100 text-purple-800 border-purple-200' },
-    { date: '15 Mar 2026', title: 'Fee Clearance Deadline for Practical Exams', tag: 'Finance', color: 'bg-rose-100 text-rose-800 border-rose-200' },
-    { date: '28 Mar 2026', title: 'Hospital Ward Rotations Mid-Term Evaluation', tag: 'Clinical', color: 'bg-teal-100 text-teal-800 border-teal-200' },
-    { date: '04 Apr 2026', title: 'End of Term Practical & Theory Examinations', tag: 'Exams', color: 'bg-purple-100 text-purple-800 border-purple-200' },
-    { date: '25 Apr 2026', title: 'Release of Term Results & Academic Board Meeting', tag: 'Results', color: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
-    { date: '02 May 2026', title: 'Supplementary & Special Examinations Window', tag: 'Special', color: 'bg-amber-100 text-amber-800 border-amber-200' },
-  ];
+  const month = CALENDAR_MONTHS_2026[currentMonthIndex];
+  const monthHolidays = KENYA_NATIONAL_DAYS_2026.filter((h) => h.month === currentMonthIndex);
 
   return (
     <PageWrapper
       onBack={onBack}
-      title="Official KMTC Academic Calendar & Institutional Events"
-      subtitle="Academic Year 2026 Schedule • Department of Physiotherapy"
+      title="Kenyan Calendar • National Days (2026)"
+      subtitle="Republic of Kenya Official Public Holidays & Gazetted National Days"
     >
-      <div className="space-y-5 text-xs">
-        {/* DUAL VIEW: Visual Interactive Calendar Grid (Always Displayed) */}
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-3.5">
-          {/* Calendar Month Controls */}
-          <div className="flex items-center justify-between">
-            <h4 className="font-black text-sm sm:text-base text-slate-900 flex items-center gap-2">
-              <CalendarIcon className="w-5 h-5 text-[#6f1825]" /> {month.name}
-            </h4>
+      <div className="space-y-4 text-xs">
+        {/* Month Selector Tabs */}
+        <div className="flex items-center gap-1 overflow-x-auto pb-1 bg-slate-50 p-2 rounded-2xl border border-slate-200">
+          {CALENDAR_MONTHS_2026.map((m) => {
+            const hasHolidays = KENYA_NATIONAL_DAYS_2026.some((h) => h.month === m.index);
+            const isSelected = currentMonthIndex === m.index;
+            return (
+              <button
+                key={m.index}
+                type="button"
+                onClick={() => setCurrentMonthIndex(m.index)}
+                className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-colors shrink-0 flex items-center gap-1 cursor-pointer ${
+                  isSelected
+                    ? 'bg-[#6f1825] text-white shadow-2xs'
+                    : 'bg-white hover:bg-slate-200 text-slate-700 border border-slate-200'
+                }`}
+              >
+                <span>{m.shortName}</span>
+                {hasHolidays && (
+                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-amber-300' : 'bg-rose-500'}`} />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Visual Calendar Grid for Selected Month */}
+        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
+          {/* Month Header & Controls */}
+          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <CalendarIcon className="w-5 h-5 text-[#6f1825]" />
+              <h3 className="font-black text-base sm:text-lg text-slate-900">
+                {month.name}
+              </h3>
+            </div>
             <div className="flex items-center gap-1.5">
               <button
+                type="button"
                 onClick={() => setCurrentMonthIndex((prev) => Math.max(0, prev - 1))}
                 disabled={currentMonthIndex === 0}
-                className="p-1.5 rounded-lg border bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors"
+                className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors cursor-pointer"
+                aria-label="Previous Month"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
-                onClick={() => setCurrentMonthIndex((prev) => Math.min(calendarMonths.length - 1, prev + 1))}
-                disabled={currentMonthIndex === calendarMonths.length - 1}
-                className="p-1.5 rounded-lg border bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors"
+                type="button"
+                onClick={() => setCurrentMonthIndex((prev) => Math.min(11, prev + 1))}
+                disabled={currentMonthIndex === 11}
+                className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors cursor-pointer"
+                aria-label="Next Month"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -1159,8 +1134,8 @@ export const CalendarPage: React.FC<{
           </div>
 
           {/* Days of Week Header */}
-          <div className="grid grid-cols-7 text-center font-bold text-[11px] text-slate-400 uppercase">
-            <span>Sun</span>
+          <div className="grid grid-cols-7 text-center font-extrabold text-[11px] text-slate-500 uppercase tracking-wider py-1 bg-slate-50 rounded-xl">
+            <span className="text-rose-600">Sun</span>
             <span>Mon</span>
             <span>Tue</span>
             <span>Wed</span>
@@ -1169,161 +1144,119 @@ export const CalendarPage: React.FC<{
             <span>Sat</span>
           </div>
 
-          {/* Month Grid */}
+          {/* Month Days Grid */}
           <div className="grid grid-cols-7 gap-1.5 text-center font-mono text-xs">
             {Array.from({ length: month.startDayOfWeek }).map((_, i) => (
-              <div key={`empty-${i}`} className="p-2 opacity-0">.</div>
+              <div key={`empty-${i}`} className="p-3 opacity-0 select-none">.</div>
             ))}
             {Array.from({ length: month.days }).map((_, i) => {
               const dayNum = i + 1;
-              const isToday = currentMonthIndex === 0 && dayNum === 15;
-              const hasEvent = (currentMonthIndex === 0 && (dayNum === 15 || dayNum === 28)) ||
-                               (currentMonthIndex === 1 && dayNum === 28) ||
-                               (currentMonthIndex === 2 && (dayNum === 15 || dayNum === 28)) ||
-                               (currentMonthIndex === 3 && (dayNum === 4 || dayNum === 25));
+              const holiday = monthHolidays.find((h) => h.day === dayNum);
 
               return (
                 <div
                   key={dayNum}
-                  className={`p-2 rounded-xl flex flex-col items-center justify-center transition-all ${
-                    isToday
-                      ? 'bg-[#6f1825] text-white font-black shadow-xs'
-                      : hasEvent
-                      ? 'bg-amber-100 text-amber-950 font-bold border border-amber-300'
-                      : 'bg-white hover:bg-slate-100 text-slate-800 border border-slate-100'
+                  className={`min-h-[64px] sm:min-h-[72px] p-1.5 sm:p-2 rounded-xl flex flex-col items-center justify-between transition-all border ${
+                    holiday
+                      ? 'bg-rose-50 text-rose-950 font-black border-rose-300 ring-2 ring-rose-200 shadow-2xs'
+                      : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-100'
                   }`}
                 >
-                  <span className="text-xs sm:text-sm">{dayNum}</span>
-                  {hasEvent && !isToday && <span className="w-1.5 h-1.5 bg-[#6f1825] rounded-full mt-1"></span>}
+                  <span className={`text-xs sm:text-sm font-bold ${holiday ? 'text-rose-700 font-black' : ''}`}>
+                    {dayNum}
+                  </span>
+                  {holiday && (
+                    <div className="mt-1 w-full">
+                      <span className="block px-1 py-0.5 rounded text-[9px] sm:text-[10px] font-black uppercase tracking-tight bg-[#6f1825] text-amber-200 leading-tight truncate">
+                        {holiday.name}
+                      </span>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
-          <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
-            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-[#6f1825] rounded-sm"></span> Today / Key Date</span>
-            <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 bg-amber-200 border border-amber-300 rounded-sm"></span> Event Scheduled</span>
-          </div>
         </div>
 
-        {/* All Dates & Events of the School */}
-        <div className="space-y-2.5">
-          <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs">
-            Chronological Institutional Dates & Events (Term 1 - Term 3 2026)
-          </h5>
-          <div className="space-y-2.5">
-            {events.map((item, idx) => (
-              <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 hover:bg-slate-100/70 transition-colors">
-                <div>
-                  <span className={`px-2.5 py-0.5 rounded text-[11px] font-bold border ${item.color}`}>
-                    {item.tag}
-                  </span>
-                  <h5 className="font-bold text-slate-900 text-xs sm:text-sm mt-1">{item.title}</h5>
-                </div>
-                <span className="font-mono text-slate-600 font-bold text-xs shrink-0">{item.date}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* National Days of the Selected Month */}
+        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+          <h4 className="font-black text-slate-900 text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-600" />
+            Kenyan National Days in {month.name}
+          </h4>
 
-        {/* Actions */}
-        <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100">
-          <span className="text-xs text-slate-400">Approved by KMTC Academic Board 2026</span>
-          <button
-            onClick={() => alert('Official 2026 KMTC Academic Calendar (PDF) downloaded.')}
-            className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
-          >
-            <Download className="w-4 h-4" /> Download Full Year Calendar (PDF)
-          </button>
-        </div>
-      </div>
-    </PageWrapper>
-  );
-};
-
-/* =========================================================================
-   9. SUPP / SPECIAL PAGE
-   ========================================================================= */
-export const SuppSpecialPage: React.FC<{
-  onBack: () => void;
-}> = ({ onBack }) => {
-  return (
-    <PageWrapper
-      onBack={onBack}
-      title="Supplementary & Special Examinations Clearance Desk"
-      subtitle="KMTC Department Examination Board Record"
-    >
-      <div className="space-y-4 text-xs">
-        {/* Status Card */}
-        <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-300 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-3.5">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-600 text-white font-bold flex items-center justify-center text-2xl shadow-xs shrink-0">
-              <CheckCircle2 className="w-8 h-8" />
-            </div>
-            <div>
-              <div className="text-emerald-950 font-black text-sm sm:text-base">Status: Good Academic Standing (Zero Supps)</div>
-              <p className="text-emerald-800 text-xs mt-0.5">
-                You have passed all 19 units since Year 1 on first sittings. There are <strong>0 pending supplementary</strong> or retake exams against your student record.
-              </p>
-            </div>
-          </div>
-          <span className="px-4 py-1.5 rounded-full bg-emerald-700 text-white font-extrabold text-xs shrink-0 self-start sm:self-auto shadow-2xs">
-            100% CLEARED
-          </span>
-        </div>
-
-        {/* History of Past Exam Sittings Verification */}
-        <div className="space-y-2.5">
-          <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs">
-            Examination Sittings Check (Since Year 1 September 2024)
-          </h5>
-          <div className="border border-slate-200 rounded-xl overflow-hidden">
-            <div className="bg-slate-100 px-4 py-2.5 font-bold text-slate-700 grid grid-cols-4 text-xs">
-              <span className="col-span-2">Examination Period</span>
-              <span>Units Sat</span>
-              <span>Supp Status</span>
-            </div>
-            <div className="divide-y divide-slate-100">
-              {[
-                { period: 'Year 1 • Semester 1 Finals', units: '5 Core Units', status: '0 Supps (All Passed)' },
-                { period: 'Year 1 • Semester 2 Finals', units: '5 Core Units', status: '0 Supps (All Passed)' },
-                { period: 'Year 1 • Semester 3 Finals', units: '4 Core Units', status: '0 Supps (All Passed)' },
-                { period: 'Year 2 • Semester 1 Finals', units: '5 Core Units', status: '0 Supps (All Passed)' },
-              ].map((row, idx) => (
-                <div key={idx} className="p-3 px-4 grid grid-cols-4 items-center">
-                  <span className="col-span-2 font-semibold text-slate-900 text-xs">{row.period}</span>
-                  <span className="text-slate-600 font-mono text-xs">{row.units}</span>
-                  <span className="text-emerald-700 font-bold flex items-center gap-1.5 text-xs">
-                    <Check className="w-3.5 h-3.5 text-emerald-600" /> {row.status}
+          {monthHolidays.length > 0 ? (
+            <div className="space-y-2">
+              {monthHolidays.map((holiday) => (
+                <div
+                  key={holiday.name}
+                  className="p-3 rounded-xl bg-white border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-10 h-10 rounded-xl bg-rose-100 border border-rose-300 text-rose-900 font-black text-sm flex items-center justify-center shrink-0">
+                      {holiday.day}
+                    </span>
+                    <div>
+                      <strong className="text-sm font-black text-slate-900 block leading-tight">
+                        {holiday.name}
+                      </strong>
+                      <span className="text-[11px] text-slate-500">{holiday.type}</span>
+                    </div>
+                  </div>
+                  <span className="px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 font-extrabold text-[10px] uppercase self-start sm:self-auto">
+                    Gazetted Public Holiday
                   </span>
                 </div>
               ))}
             </div>
-          </div>
+          ) : (
+            <p className="text-slate-500 text-xs italic py-2">
+              There are no gazetted Kenyan national public holidays in {month.name}.
+            </p>
+          )}
         </div>
 
-        {/* Special Examination Requests Desk */}
-        <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
-          <div className="flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 text-amber-700" />
-            <h5 className="font-extrabold text-slate-900 text-sm">Special Examination Request Window</h5>
+        {/* Complete Year Directory of Kenyan National Days */}
+        <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-2xs">
+          <div className="px-4 py-3 bg-slate-100/70 border-b border-slate-200">
+            <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm">
+              All 2026 Kenyan Gazetted National Holidays
+            </h4>
           </div>
-          <p className="text-slate-600 leading-relaxed text-xs">
-            Students who miss scheduled continuous assessment tests or end-of-term examinations due to verified medical emergencies or documented compassionate grounds may apply for a Special Examination.
-          </p>
-          <div className="pt-2.5 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-200/80">
-            <span className="text-slate-500 text-xs">Next Special Exam Board: May 2026 Session</span>
-            <button
-              onClick={() => alert('Special Examination Application initiated.\n\nPlease upload medical superintendent documentation to complete request.')}
-              className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs transition-colors shadow-xs"
-            >
-              Apply for Special Examination
-            </button>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="bg-slate-100 text-slate-800 font-extrabold border-b border-slate-200 uppercase tracking-wider text-[11px]">
+                  <th className="py-2.5 px-4">Date</th>
+                  <th className="py-2.5 px-4">National Holiday</th>
+                  <th className="py-2.5 px-4">Gazetted Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {KENYA_NATIONAL_DAYS_2026.map((h) => (
+                  <tr key={`${h.month}-${h.day}-${h.name}`} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-2.5 px-4 font-mono font-bold text-slate-900 whitespace-nowrap">
+                      {String(h.day).padStart(2, '0')}{' '}
+                      {CALENDAR_MONTHS_2026[h.month].shortName} 2026
+                    </td>
+                    <td className="py-2.5 px-4 font-bold text-slate-900">{h.name}</td>
+                    <td className="py-2.5 px-4 text-slate-600">{h.type}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </PageWrapper>
   );
 };
+
+
+/* =========================================================================
+   9. SUPP / SPECIAL PAGE
+   ========================================================================= */
+export { SuppSpecialPage } from './examination/SuppSpecialPage';
 
 /* =========================================================================
    10. REVISION PAPERS PAGE

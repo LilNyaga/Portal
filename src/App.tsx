@@ -1,20 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { SidebarDrawer } from './components/SidebarDrawer';
 import { HeroStatus } from './components/HeroStatus';
 import { UrgentNotice } from './components/UrgentNotice';
 import { QuickActionTiles } from './components/QuickActionTiles';
-import { TimetableSection } from './components/TimetableSection';
 import { RegistrationPage } from './components/registration/RegistrationPage';
 import { GradesPage } from './components/examination/GradesPage';
+import { SuppSpecialPage } from './components/examination/SuppSpecialPage';
 import { FeesPage } from './components/fees/FeeStatementPage';
+import { HowToPayPage } from './components/fees/HowToPayPage';
+import { MyCoursePage } from './components/courses/MyCoursePage';
+import { CourseTransferPage } from './components/courses/CourseTransferPage';
 import { 
   ProfilePage,
   TimetablePage,
-  HowToPayPage,
   HostelPage,
   CalendarPage,
-  SuppSpecialPage,
   RevisionPage,
   ContactsPage
 } from './components/Modals';
@@ -26,7 +27,9 @@ import {
   INITIAL_FEE_STATEMENT, 
   INITIAL_HOSTEL,
   INITIAL_RESOURCES,
-  INITIAL_REGISTRATION_RECORDS
+  INITIAL_REGISTRATION_RECORDS,
+  INITIAL_SUPP_SPECIAL_EXAMS,
+  getSuppSpecialExamsFromBackend
 } from './services/firebase';
 import { UserRole } from './types';
 
@@ -42,23 +45,36 @@ export type PageView =
   | 'calendar'
   | 'supp'
   | 'revision'
-  | 'contacts';
+  | 'contacts'
+  | 'myCourse'
+  | 'courseTransfer';
 
 export function App() {
   const [user, setUser] = useState(INITIAL_USER);
-  const [timetable, setTimetable] = useState(INITIAL_TIMETABLE);
+  const [timetable] = useState(INITIAL_TIMETABLE);
   const [announcements] = useState(INITIAL_ANNOUNCEMENTS);
   const [transcripts] = useState(INITIAL_TRANSCRIPTS);
   const [feeStatement] = useState(INITIAL_FEE_STATEMENT);
   const [hostel] = useState(INITIAL_HOSTEL);
   const [resources] = useState(INITIAL_RESOURCES);
   const [registrationRecords] = useState(INITIAL_REGISTRATION_RECORDS);
+  const [suppExams, setSuppExams] = useState(INITIAL_SUPP_SPECIAL_EXAMS);
+
+  useEffect(() => {
+    getSuppSpecialExamsFromBackend().then((data) => {
+      if (data && data.length > 0) {
+        setSuppExams(data);
+      }
+    });
+  }, []);
 
   // Navigation State: Full Dedicated Pages (Zero Popups!)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [previousView, setPreviousView] = useState<PageView>('dashboard');
   const [currentView, setCurrentView] = useState<PageView>('dashboard');
 
   const navigateTo = (view: PageView) => {
+    setPreviousView(currentView);
     setCurrentView(view);
     setIsMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -81,29 +97,10 @@ export function App() {
     });
   };
 
-  // Timetable Slot Edit Handler
-  const handleEditSlot = (slotId: string) => {
-    const slot = timetable.find((s) => s.id === slotId);
-    if (!slot) return;
-
-    const newRoom = prompt(
-      `Update room/time for ${slot.unitCode} (${slot.unitName}):`,
-      slot.room
-    );
-    if (newRoom && newRoom !== slot.room) {
-      setTimetable((prev) =>
-        prev.map((s) =>
-          s.id === slotId
-            ? { ...s, room: newRoom, rescheduled: true, rescheduleNote: 'Updated by Lecturer/Rep in realtime' }
-            : s
-        )
-      );
-      alert('Firestore sync: Slot updated and push alert triggered for all 48 cohort members!');
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col font-sans text-slate-800">
+    <div className={`min-h-screen flex flex-col font-sans text-slate-800 transition-colors duration-200 ${
+      currentView === 'howToPay' ? 'bg-[#FAF6EE]' : 'bg-slate-100'
+    }`}>
       
       {/* 1. TOP HEADER & APP BAR */}
       <div className={`transition-all duration-300 ${isMenuOpen ? 'filter blur-[3px]' : ''}`}>
@@ -124,7 +121,11 @@ export function App() {
       />
 
       {/* 3. MAIN CONTAINER: DASHBOARD OR DEDICATED FULL PAGE */}
-      <main className={`flex-1 max-w-6xl w-full mx-auto px-3 sm:px-6 pt-3 pb-6 space-y-3.5 transition-all duration-300 ${
+      <main className={`flex-1 w-full transition-all duration-300 ${
+        currentView === 'howToPay'
+          ? 'max-w-6xl mx-auto px-4 sm:px-6 pt-2 pb-8'
+          : 'max-w-6xl mx-auto px-3 sm:px-6 pt-3 pb-6 space-y-3.5'
+      } ${
         isMenuOpen ? 'filter blur-[4px] pointer-events-none select-none' : ''
       }`}>
         
@@ -148,14 +149,6 @@ export function App() {
               gpa={3.68}
               balance={feeStatement.balance}
               hostelRoom={`${hostel.block} (${hostel.roomNumber})`}
-            />
-
-            {/* Live Class Timetable Section */}
-            <TimetableSection
-              slots={timetable}
-              userRole={user.role}
-              onEditSlot={handleEditSlot}
-              onOpenNotes={() => navigateTo('revision')}
             />
           </>
         )}
@@ -186,7 +179,11 @@ export function App() {
         )}
 
         {currentView === 'howToPay' && (
-          <HowToPayPage onBack={() => navigateTo('fees')} />
+          <HowToPayPage
+            user={user}
+            balance={feeStatement.balance}
+            onBack={() => navigateTo(previousView === 'howToPay' ? 'dashboard' : previousView)}
+          />
         )}
 
         {currentView === 'hostel' && (
@@ -198,7 +195,12 @@ export function App() {
         )}
 
         {currentView === 'supp' && (
-          <SuppSpecialPage onBack={() => navigateTo('dashboard')} />
+          <SuppSpecialPage
+            exams={suppExams}
+            user={user}
+            onBack={() => navigateTo('dashboard')}
+            onAddExam={(newExam) => setSuppExams((prev) => [newExam, ...prev])}
+          />
         )}
 
         {currentView === 'revision' && (
@@ -207,6 +209,14 @@ export function App() {
 
         {currentView === 'contacts' && (
           <ContactsPage onBack={() => navigateTo('dashboard')} />
+        )}
+
+        {currentView === 'myCourse' && (
+          <MyCoursePage user={user} onBack={() => navigateTo('dashboard')} />
+        )}
+
+        {currentView === 'courseTransfer' && (
+          <CourseTransferPage onBack={() => navigateTo('dashboard')} />
         )}
 
       </main>

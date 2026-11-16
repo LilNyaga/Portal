@@ -136,3 +136,25 @@ export interface HostelAllocation {
   amenities?: string[];
   roommates?: string[];
 }
+
+export type SuppSpecialExamType = 'Supplementary' | 'Special';
+export type SuppSpecialExamStatus = 'Scheduled' | 'Approved' | 'Pending Clearance' | 'Completed';
+
+export interface SuppSpecialExam {
+  id: string;
+  unitCode: string;
+  unitName: string;
+  academicYear: string;
+  semester: string;
+  examType: SuppSpecialExamType;
+  examDate: string;
+  examTime: string;
+  venue: string;
+  seatNumber?: string;
+  status: SuppSpecialExamStatus;
+  reason?: string;
+  fee: number;
+  feeStatus: 'Paid' | 'Waived' | 'Pending';
+  lecturer?: string;
+  paperCode?: string;
+}
