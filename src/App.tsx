@@ -106,9 +106,7 @@ export function App() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans text-slate-800 transition-colors duration-200 ${
-      currentView === 'howToPay' ? 'bg-[#FAF6EE]' : 'bg-slate-100'
-    }`}>
+    <div className="min-h-screen flex flex-col font-sans text-slate-800 transition-colors duration-200 bg-[#FAF6EE]">
       
       {/* 1. TOP HEADER & APP BAR */}
       <div className={`transition-all duration-300 ${isMenuOpen ? 'filter blur-[3px]' : ''}`}>
@@ -129,10 +127,10 @@ export function App() {
       />
 
       {/* 3. MAIN CONTAINER: DASHBOARD OR DEDICATED FULL PAGE */}
-      <main className={`flex-1 w-full transition-all duration-300 ${
+      <main className={`flex-1 w-full transition-all duration-300 bg-[#FAF6EE] ${
         currentView === 'howToPay'
-          ? 'max-w-6xl mx-auto px-4 sm:px-6 pt-0 pb-8'
-          : 'max-w-6xl mx-auto px-3 sm:px-6 pt-0 pb-6 space-y-0'
+          ? 'max-w-6xl mx-auto px-2 sm:px-4 pt-0 pb-6'
+          : 'max-w-6xl mx-auto px-2 sm:px-4 pt-0 pb-5 space-y-0'
       } ${
         isMenuOpen ? 'filter blur-[4px] pointer-events-none select-none' : ''
       }`}>
@@ -198,7 +196,6 @@ export function App() {
           <FeesPage
             feeStatement={feeStatement}
             onBack={() => navigateTo('dashboard')}
-            onOpenHowToPay={() => navigateTo('howToPay')}
           />
         )}
 
@@ -246,10 +243,10 @@ export function App() {
       </main>
 
       {/* 4. FOOTER */}
-      <footer className={`bg-[#6f1825] text-amber-100 py-2 sm:py-2.5 text-center text-xs font-medium border-t border-amber-400/20 shadow-xs transition-all duration-300 ${
+      <footer className={`bg-[#6f1825] text-amber-100 py-1.5 sm:py-2 text-center text-xs font-medium border-t border-amber-400/20 shadow-xs transition-all duration-300 ${
         isMenuOpen ? 'filter blur-[3px]' : ''
       }`}>
-        <div className="max-w-6xl mx-auto px-4 flex flex-col items-center justify-center text-center gap-0.5">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 flex flex-col items-center justify-center text-center gap-0.25">
           <span className="font-semibold text-amber-100/95">
             KMTC PhysioConnect © 2026 Kenya Medical Training College
           </span>

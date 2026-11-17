@@ -20,77 +20,66 @@ export const GradesPage: React.FC<{
   };
 
   return (
-    <div className="bg-slate-50 text-black rounded-3xl p-4 sm:p-7 shadow-xs border border-slate-200 space-y-5 animate-fadeIn">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 gap-3">
+    <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={onBack}
-            className="flex items-center justify-center w-10 h-10 rounded-xl border border-rose-200 bg-rose-50 text-[#6f1825] hover:text-rose-950 hover:bg-rose-100 transition-colors shadow-2xs cursor-pointer select-none shrink-0"
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
             aria-label="Back to Dashboard"
           >
-            <ArrowLeft className="w-4 h-4 stroke-[2.5]" />
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
           </button>
 
           <div>
-            <h1 className="font-black text-xl sm:text-2xl text-blue-700 leading-tight">
-              Exam Series Results
+            <h1 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+              Exam Results
             </h1>
-            <p className="text-xs text-black mt-0.5">
+            <p className="text-xs text-slate-600 mt-0.5">
               KMTC Directorate of Examinations • Official Examination Series & Unit Scores
             </p>
           </div>
         </div>
       </div>
 
-      <div className="space-y-4 text-xs text-black">
-        <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs bg-white">
-          <div className="px-4 py-3 bg-slate-100/70 border-b border-slate-200">
-            <h2 className="font-extrabold text-black text-sm">Examination Series Directory</h2>
-            <p className="text-[11px] text-black/75">
-              Select any series row under Action to view the exam of the specific semester.
-            </p>
-          </div>
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[760px] border-collapse text-left text-xs bg-transparent">
+          <thead>
+            <tr className="bg-[#FAF2DE] text-slate-800 font-extrabold uppercase tracking-wider text-[11px] border-b border-slate-200">
+              <th className="py-3 px-4 border border-slate-200">Academic Year</th>
+              <th className="py-3 px-4 border border-slate-200">Academic Semester</th>
+              <th className="py-3 px-4 border border-slate-200">Exam Series Name (Year)</th>
+              <th className="py-3 px-4 border border-slate-200">Stage of the Semester</th>
+              <th className="py-3 px-4 border border-slate-200 text-center">Action</th>
+            </tr>
+          </thead>
 
-          <div className="overflow-x-auto bg-white">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="bg-slate-100 text-black font-extrabold border-b border-slate-200 uppercase tracking-wider text-[11px]">
-                  <th className="py-3 px-4 text-black">Academic Year</th>
-                  <th className="py-3 px-4 text-black">Academic Semester</th>
-                  <th className="py-3 px-4 text-black">Exam Series Name (Year)</th>
-                  <th className="py-3 px-4 text-black border-none">Stage of the Semester</th>
-                  <th className="py-3 px-4 text-center text-black border-none">Action</th>
-                </tr>
-              </thead>
-
-              <tbody className="divide-y divide-slate-100">
-                {transcripts.map((item, index) => (
-                  <tr key={`${item.academicYear}-${item.academicSemester}-${index}`} className="hover:bg-slate-50 transition-colors">
-                    <td className="py-3 px-4 text-black font-bold whitespace-nowrap">{item.academicYear}</td>
-                    <td className="py-3 px-4 text-black font-bold whitespace-nowrap">{item.academicSemester}</td>
-                    <td className="py-3 px-4 text-black font-bold whitespace-nowrap">{item.examSeriesName}</td>
-                    <td className="py-3 px-4 text-black border-none whitespace-nowrap">{getStageCode(item, index)}</td>
-                    <td className="py-3 px-4 text-center border-none whitespace-nowrap">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedSemester(item)}
-                        className="inline-flex items-center justify-center px-3 py-1.5 rounded-xl font-bold text-[11px] text-sky-900 bg-sky-100 hover:bg-sky-200 border border-sky-200 transition-colors shadow-2xs cursor-pointer"
-                      >
-                        View Exam
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+          <tbody>
+            {transcripts.map((item, index) => (
+              <tr key={`${item.academicYear}-${item.academicSemester}-${index}`} className="align-middle bg-white/40">
+                <td className="py-3 px-4 border border-slate-200 font-bold whitespace-nowrap text-slate-900">{item.academicYear}</td>
+                <td className="py-3 px-4 border border-slate-200 font-bold whitespace-nowrap text-slate-900">{item.academicSemester}</td>
+                <td className="py-3 px-4 border border-slate-200 font-bold whitespace-nowrap text-slate-900">{item.examSeriesName}</td>
+                <td className="py-3 px-4 border border-slate-200 whitespace-nowrap text-slate-700">{getStageCode(item, index)}</td>
+                <td className="py-3 px-4 border border-slate-200 text-center whitespace-nowrap">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSemester(item)}
+                    className="inline-flex items-center justify-center px-3 py-1.5 rounded-xl font-bold text-[11px] text-slate-900 bg-[#FAF2DE] hover:bg-[#F3E6C3] border border-[#E7D7C6] transition-colors shadow-2xs cursor-pointer"
+                  >
+                    View Exam
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {selectedSemester && (
         <div className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-white rounded-3xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl border-2 border-sky-200 my-auto space-y-4 animate-fadeIn">
+          <div className="bg-white rounded-3xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl border-2 border-slate-200 my-auto space-y-4 animate-fadeIn">
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
               <div>
                 <h3 className="font-black text-base sm:text-lg text-slate-900">{selectedSemester.examSeriesName}</h3>

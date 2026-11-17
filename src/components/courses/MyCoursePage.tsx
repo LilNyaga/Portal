@@ -34,10 +34,10 @@ export const MyCoursePage: React.FC<{
         {/* FIRST TABLE: PROGRAM SPECIFICATION & ENTRY REQUIREMENTS */}
         <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-2xs">
           <div className="px-4 py-3 bg-slate-100/70 border-b border-slate-200">
-            <h3 className="font-extrabold text-slate-900 text-sm">
+            <h3 className="font-extrabold text-slate-900 text-sm uppercase tracking-wide">
               Program Specification & Entry Profile
             </h3>
-            <p className="text-[11px] text-slate-500">
+            <p className="text-[11px] text-slate-500 mt-1">
               Official course details, hosting department, program duration, and minimum entry qualifications.
             </p>
           </div>
@@ -53,23 +53,25 @@ export const MyCoursePage: React.FC<{
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                <tr className="hover:bg-slate-50 transition-colors">
-                  <td className="py-4 px-4 font-black text-slate-900 whitespace-nowrap">
-                    <span className="text-sm font-black block text-[#6f1825]">
-                      {user?.cohort?.replace(/\s*\(.*\)/, '') || 'Diploma in Physiotherapy'}
-                    </span>
-                    <span className="text-[11px] text-slate-500 font-mono">
-                      {user?.cohort || 'Cohort 2024 (Class of 2027)'}
-                    </span>
+                <tr className="hover:bg-slate-50 transition-colors align-top">
+                  <td className="py-4 px-4 font-black text-slate-900 whitespace-nowrap align-top">
+                    <div className="space-y-1.5">
+                      <span className="text-sm font-black block text-[#6f1825] leading-tight">
+                        {user?.cohort?.replace(/\s*\(.*\)/, '') || 'Diploma in Physiotherapy'}
+                      </span>
+                      <span className="text-[11px] text-slate-500 font-mono block">
+                        {user?.cohort || 'Cohort 2024 (Class of 2027)'}
+                      </span>
+                    </div>
                   </td>
-                  <td className="py-4 px-4 font-bold text-slate-800">
+                  <td className="py-4 px-4 font-bold text-slate-800 align-top">
                     {user?.department || 'Department of Physiotherapy'}
                   </td>
-                  <td className="py-4 px-4 font-bold text-slate-700 whitespace-nowrap">
+                  <td className="py-4 px-4 font-bold text-slate-700 whitespace-nowrap align-top">
                     3 Academic Years (6 Semesters)
                   </td>
-                  <td className="py-4 px-4 text-slate-700 leading-relaxed min-w-[280px]">
-                    <div className="space-y-1">
+                  <td className="py-4 px-4 text-slate-700 leading-relaxed min-w-[280px] align-top">
+                    <div className="space-y-1.5">
                       <div><strong className="text-slate-900">Mean Grade:</strong> KCSE C (Plain)</div>
                       <div><strong className="text-slate-900">Mandatory:</strong> Biology C (Plain), English or Kiswahili C (Plain)</div>
                       <div><strong className="text-slate-900">Cluster:</strong> Chemistry, Physics or Mathematics C- (Minus)</div>
@@ -84,10 +86,10 @@ export const MyCoursePage: React.FC<{
         {/* SECOND TABLE: REGISTRATION STATUS, CURRENT SEMESTER & STAGE */}
         <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-2xs">
           <div className="px-4 py-3 bg-slate-100/70 border-b border-slate-200">
-            <h3 className="font-extrabold text-slate-900 text-sm">
+            <h3 className="font-extrabold text-slate-900 text-sm uppercase tracking-wide">
               Registration Status & Semester Progression
             </h3>
-            <p className="text-[11px] text-slate-500">
+            <p className="text-[11px] text-slate-500 mt-1">
               Official semester enrollment status, active study stage, and current session record.
             </p>
           </div>
@@ -102,17 +104,17 @@ export const MyCoursePage: React.FC<{
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                <tr className="hover:bg-slate-50 transition-colors">
-                  <td className="py-4 px-4 whitespace-nowrap">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-900 border border-emerald-300">
+                <tr className="hover:bg-slate-50 transition-colors align-middle">
+                  <td className="py-4 px-4 whitespace-nowrap align-middle text-center">
+                    <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-900 border border-emerald-300">
                       <span className="w-2 h-2 rounded-full bg-emerald-600" />
                       {user?.isRegistered ? 'Registered & Cleared' : 'Pending Registration'}
                     </span>
                   </td>
-                  <td className="py-4 px-4 font-black text-slate-900 text-sm whitespace-nowrap">
+                  <td className="py-4 px-4 font-black text-slate-900 text-sm whitespace-nowrap align-middle">
                     {user?.semester || 'Year 2, Semester 1'}
                   </td>
-                  <td className="py-4 px-4 font-bold text-slate-800 whitespace-nowrap">
+                  <td className="py-4 px-4 font-bold text-slate-800 whitespace-nowrap align-middle">
                     Stage 2.1 (Year 2 • First Session)
                   </td>
                 </tr>

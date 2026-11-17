@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageWrapper } from '../shared/PageWrapper';
+import { ArrowLeft } from 'lucide-react';
 import { SuppSpecialExam, UserProfile } from '../../types';
 
 interface SuppSpecialPageProps {
@@ -13,45 +13,50 @@ export const SuppSpecialPage: React.FC<SuppSpecialPageProps> = ({ onBack }) => {
   const columns = ['Series', 'Exam on Offer', 'Action'];
 
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Special & Supplementary"
-      badge={undefined}
-    >
-      <div className="space-y-0 text-xs text-black">
-        <div className="mt-1 mr-1 flex items-center justify-between">
-          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-500">Exam records</div>
+    <div className="w-full pt-2 sm:pt-4">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-xl bg-emerald-600 px-3 py-1.5 text-[11px] font-extrabold text-white shadow-sm transition hover:bg-emerald-700"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Back to Dashboard"
           >
-            Register
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
           </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Supp / Special Exams
+          </h2>
         </div>
 
-        <div className="rounded-2xl border border-[#E7D7C6] overflow-hidden bg-[#FFFDF9] shadow-sm">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="bg-[#F7E8D8] text-[#4B2A2C] font-extrabold uppercase tracking-wider text-[11px]">
-                  {columns.map((column) => (
-                    <th key={column} className="py-3.5 px-4 whitespace-nowrap border-b border-[#E7D7C6]">
-                      {column}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td colSpan={columns.length} className="py-12 px-4 text-center text-slate-500 bg-white">
-                    No examination records available.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <button
+          type="button"
+          className="px-4 py-2.5 rounded-xl bg-[#6f1825] text-white font-bold text-xs shadow-xs hover:bg-[#581620] transition-colors whitespace-nowrap"
+        >
+          Register
+        </button>
       </div>
-    </PageWrapper>
+
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[760px] border-collapse text-left text-xs bg-transparent">
+          <thead>
+            <tr className="bg-[#FAF2DE] text-slate-800 font-extrabold uppercase tracking-wider text-[11px] border-b border-slate-200">
+              {columns.map((column) => (
+                <th key={column} className="py-3 px-4 border border-slate-200">
+                  {column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="h-16 align-middle">
+              <td colSpan={columns.length} className="border border-slate-200 bg-white px-4 py-3 text-center font-medium text-slate-500">
+                No Data Available
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };

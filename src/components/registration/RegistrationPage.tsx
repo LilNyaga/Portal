@@ -65,8 +65,8 @@ export const RegisteredUnitsPage: React.FC<{
                         </span>
                       </td>
                       <td className="py-3 px-4 font-medium text-slate-800">{unit.name}</td>
-                      <td className="py-3 px-4">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-black border bg-emerald-100 text-emerald-900 border-emerald-300">
+                      <td className="py-3 px-4 text-center">
+                        <span className="inline-flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-full text-[10.5px] font-black border bg-emerald-100 text-emerald-900 border-emerald-300 mx-auto min-w-[104px]">
                           <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                           {unit.status}
                         </span>
@@ -94,54 +94,133 @@ export const SemesterStatusPage: React.FC<{
   onBack: () => void;
   onOpenUnits: () => void;
 }> = ({ onBack, onOpenUnits }) => {
-  const semesterStatus = {
-    academicYear: '2025/2026',
-    semester: 'Year 2 Term 1',
-    department: 'Physiotherapy',
-    status: 'Active',
-    registrationStatus: 'Registered',
-    invoiceStatus: 'Invoiced',
-    notes: 'Units already assigned for the current semester.',
-  };
+  const tableHeaders = ['Academic Year', 'Semester', 'Department', 'Status', 'Registration Status', 'Invoice Status'];
 
-  const cards = [
-    { label: 'Academic Year', value: semesterStatus.academicYear },
-    { label: 'Semester', value: semesterStatus.semester },
-    { label: 'Department', value: semesterStatus.department },
-    { label: 'Status', value: semesterStatus.status },
-    { label: 'Registration Status', value: semesterStatus.registrationStatus },
-    { label: 'Invoice Status', value: semesterStatus.invoiceStatus },
+  const records = [
+    {
+      academicYear: '2025/2026',
+      semester: 'Year 2 Term 1',
+      department: 'Physiotherapy',
+      status: 'Active',
+      registrationStatus: 'Registered',
+      invoiceStatus: 'Invoiced',
+    },
+    {
+      academicYear: '2024/2025',
+      semester: 'Year 1 Term 3',
+      department: 'Physiotherapy',
+      status: 'Completed',
+      registrationStatus: 'Completed',
+      invoiceStatus: 'Cleared',
+    },
+    {
+      academicYear: '2024/2025',
+      semester: 'Year 1 Term 2',
+      department: 'Physiotherapy',
+      status: 'Completed',
+      registrationStatus: 'Completed',
+      invoiceStatus: 'Cleared',
+    },
+    {
+      academicYear: '2024/2025',
+      semester: 'Year 1 Term 1',
+      department: 'Physiotherapy',
+      status: 'Completed',
+      registrationStatus: 'Completed',
+      invoiceStatus: 'Cleared',
+    },
   ];
 
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Semester Status"
-      badge={undefined}
-    >
-      <div className="space-y-5 text-xs">
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 max-w-4xl mx-auto">
-          {cards.map((card) => (
-            <div key={card.label} className="rounded-2xl border border-emerald-300 bg-emerald-600 p-3 shadow-sm w-full max-w-[260px] mx-auto text-center">
-              <div className="text-[10px] uppercase tracking-wide text-emerald-50 font-bold">{card.label}</div>
-              <div className="mt-2 text-sm font-black text-white">{card.value}</div>
-            </div>
-          ))}
+    <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Back to Dashboard"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Semester Status
+          </h2>
         </div>
 
-        <div className="rounded-2xl border border-[#E7D7C6] bg-[#FFFDF9] p-3 max-w-4xl mx-auto shadow-sm">
-          <div className="flex justify-center">
-            <button
-              type="button"
-              onClick={onOpenUnits}
-              className="px-4 py-2.5 rounded-xl bg-[#6f1825] text-white text-[11px] font-black hover:bg-[#59131e] transition-colors"
-            >
-              View Units
-            </button>
-          </div>
-        </div>
+        <button
+          type="button"
+          onClick={onOpenUnits}
+          className="px-4 py-2.5 rounded-xl bg-[#6f1825] text-white font-bold text-xs shadow-xs hover:bg-[#581620] transition-colors whitespace-nowrap"
+        >
+          View Units
+        </button>
       </div>
-    </PageWrapper>
+
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[760px] border-collapse text-left text-xs bg-transparent">
+          <thead>
+            <tr className="bg-[#FAF2DE] text-slate-800 font-extrabold uppercase tracking-wider text-[11px] border-b border-slate-200">
+              {tableHeaders.map((header) => (
+                <th key={header} className="py-3 px-4 border border-slate-200">
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {records.map((record, index) => (
+              <tr key={`${record.academicYear}-${record.semester}`} className={`align-middle ${index % 2 === 0 ? 'bg-white/40' : 'bg-white/20'}`}>
+                <td className="py-3 px-4 border border-slate-200 text-slate-700 align-top font-semibold">
+                  {record.academicYear}
+                </td>
+                <td className="py-3 px-4 border border-slate-200 text-slate-700 align-top font-semibold">
+                  {record.semester}
+                </td>
+                <td className="py-3 px-4 border border-slate-200 text-slate-700 align-top font-semibold">
+                  {record.department}
+                </td>
+                <td className="py-3 px-4 border border-slate-200 text-slate-700 align-top">
+                  <span
+                    className={`inline-flex items-center justify-center px-2.5 py-1 rounded-full text-[10.5px] font-black border min-w-[100px] ${
+                      record.status === 'Completed'
+                        ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                        : 'bg-emerald-600 text-white border-emerald-500'
+                    }`}
+                  >
+                    {record.status}
+                  </span>
+                </td>
+                <td className="py-3 px-4 border border-slate-200 text-slate-700 align-top">
+                  <span
+                    className={`inline-flex items-center justify-center px-2.5 py-1 rounded-full text-[10.5px] font-black border min-w-[110px] ${
+                      record.registrationStatus === 'Completed'
+                        ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                        : 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                    }`}
+                  >
+                    {record.registrationStatus}
+                  </span>
+                </td>
+                <td className="py-3 px-4 border border-slate-200 text-slate-700 align-top">
+                  <span
+                    className={`inline-flex items-center justify-center px-2.5 py-1 rounded-full text-[10.5px] font-black border min-w-[100px] ${
+                      record.invoiceStatus === 'Cleared'
+                        ? 'bg-amber-100 text-amber-900 border-amber-300'
+                        : 'bg-amber-100 text-amber-900 border-amber-300'
+                    }`}
+                  >
+                    {record.invoiceStatus}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
@@ -160,45 +239,63 @@ export const LeaveDefermentPage: React.FC<{
   ];
 
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Leave / Deferment"
-      subtitle="Academic leave and deferment requests"
-      badge={undefined}
-    >
-      <div className="rounded-2xl border border-[#E7D7C6] overflow-hidden bg-[#FFFDF9] shadow-sm max-w-5xl mx-auto">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="bg-[#F7E8D8] text-[#4B2A2C] font-extrabold uppercase tracking-wider text-[11px]">
-                {columns.map((column) => (
-                  <th key={column} className="py-3.5 px-4 whitespace-nowrap border-b border-[#E7D7C6]">{column}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.length > 0 ? (
-                rows.map((row, idx) => (
-                  <tr key={idx} className="border-t border-[#F0E4D5] hover:bg-[#FFF8F1]">
-                    {columns.map((column) => (
-                      <td key={`${idx}-${column}`} className="py-3.5 px-4 text-slate-700 align-top">
-                        {row[column] ?? '—'}
-                      </td>
-                    ))}
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={columns.length} className="py-12 px-4 text-center text-slate-500 bg-white">
-                    No leave or deferment records available.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+    <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Back to Dashboard"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Leave / Deferment
+          </h2>
         </div>
+
+        <button
+          type="button"
+          className="px-4 py-2.5 rounded-xl bg-[#6f1825] text-white font-bold text-xs shadow-xs hover:bg-[#581620] transition-colors whitespace-nowrap"
+        >
+          Create Request
+        </button>
       </div>
-    </PageWrapper>
+
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[760px] border-collapse text-left text-xs bg-transparent">
+          <thead>
+            <tr className="bg-[#FAF2DE] text-slate-800 font-extrabold uppercase tracking-wider text-[11px] border-b border-slate-200">
+              {columns.map((column) => (
+                <th key={column} className="py-3 px-4 border border-slate-200">{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.length > 0 ? (
+              rows.map((row, idx) => (
+                <tr key={idx} className="align-middle bg-white/40">
+                  {columns.map((column) => (
+                    <td key={`${idx}-${column}`} className="py-3 px-4 border border-slate-200 text-slate-700 align-top">
+                      {row[column] ?? '—'}
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : (
+              <tr className="h-16 align-middle">
+                <td colSpan={columns.length} className="border border-slate-200 bg-white px-4 py-3 text-center font-medium text-slate-500">
+                  No Data Available
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
@@ -206,25 +303,53 @@ export const ReadmissionPage: React.FC<{
   onBack: () => void;
 }> = ({ onBack }) => {
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Readmission"
-      subtitle="Resume studies after approved leave or deferment"
-      badge={undefined}
-    >
-      <div className="max-w-[220px] mx-auto pt-1">
-        <div className="rounded-xl border border-[#E7D7C6] bg-[#FFFDF9] p-2.5 shadow-sm">
-          <div className="flex justify-center">
-            <button
-              type="button"
-              className="w-full max-w-[150px] px-2.5 py-1.5 rounded-md bg-[#6f1825] text-white text-[10px] font-black hover:bg-[#59131e] transition-colors shadow-sm"
-            >
-              Create Request
-            </button>
-          </div>
+    <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Back to Dashboard"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Readmission
+          </h2>
         </div>
+
+        <button
+          type="button"
+          className="px-4 py-2.5 rounded-xl bg-[#6f1825] text-white font-bold text-xs shadow-xs hover:bg-[#581620] transition-colors whitespace-nowrap"
+        >
+          Create Request
+        </button>
       </div>
-    </PageWrapper>
+
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[760px] border-collapse text-left text-xs bg-transparent">
+          <thead>
+            <tr className="bg-[#FAF2DE] text-slate-800 font-extrabold uppercase tracking-wider text-[11px] border-b border-slate-200">
+              <th className="py-3 px-4 border border-slate-200">Academic Year</th>
+              <th className="py-3 px-4 border border-slate-200">Semester</th>
+              <th className="py-3 px-4 border border-slate-200">Program</th>
+              <th className="py-3 px-4 border border-slate-200">Reason</th>
+              <th className="py-3 px-4 border border-slate-200">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="h-16 align-middle">
+              <td colSpan={5} className="border border-slate-200 bg-white px-4 py-3 text-center font-medium text-slate-500">
+                No Data Available
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
@@ -249,118 +374,120 @@ export const RegistrationPage: React.FC<{
   }
 
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Semester Registration & Course Enrollment Tracker"
-      subtitle={`Student: ${user.name} (${user.admissionNo}) • Status & Exam Passes Since Year 1 Entry`}
-      badge={undefined}
-    >
-      <div className="space-y-4 text-xs">
-        <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs bg-white">
-          <div className="px-4 py-3 bg-slate-100/70 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-            <div>
-              <h3 className="font-extrabold text-slate-900 text-sm">Semester Registration Directory</h3>
-              <p className="text-[11px] text-slate-500">
-                Official table of semester enrollment statuses, enrolled course units, and examination passes.
-              </p>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto bg-white">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="bg-slate-100 text-slate-800 font-extrabold border-b border-slate-200 uppercase tracking-wider text-[11px]">
-                  <th className="py-3 px-4">Academic Year</th>
-                  <th className="py-3 px-4">Semester</th>
-                  <th className="py-3 px-4">Registration Status</th>
-                  <th className="py-3 px-4">Enrolled Units</th>
-                  <th className="py-3 px-4 text-center">Exam Pass</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {records.map((sem, index) => {
-                  const isSuccessful = sem.status === 'Successful';
-                  const isRegistered = sem.status === 'Registered';
-                  const rowBg = index % 2 === 0 ? 'bg-white' : 'bg-slate-50/70';
-
-                  return (
-                    <tr key={sem.id} className={`transition-colors hover:bg-slate-100/60 ${rowBg}`}>
-                      <td className="py-3.5 px-4 font-bold text-slate-900 whitespace-nowrap">
-                        <span className="px-2 py-1 rounded-md bg-white border border-slate-200 font-mono text-[11px] text-slate-900 shadow-2xs">
-                          {sem.academicYear}
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4 font-bold text-slate-900">
-                        <div>
-                          <span className="font-extrabold text-slate-900 block">{formatSemesterTitle(sem.title)}</span>
-                          {sem.registrationDate && (
-                            <span className="text-[10px] text-slate-500 font-normal">
-                              Enrolled: {sem.registrationDate}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <span
-                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-black border ${
-                            isSuccessful
-                              ? 'bg-emerald-600 text-white border-emerald-500'
-                              : isRegistered
-                              ? 'bg-emerald-600 text-white border-emerald-500'
-                              : 'bg-amber-100 text-amber-900 border-amber-300'
-                          }`}
-                        >
-                          <span
-                            className={`w-1.5 h-1.5 rounded-full ${
-                              isSuccessful || isRegistered ? 'bg-emerald-600' : 'bg-amber-600'
-                            }`}
-                          />
-                          {isSuccessful ? 'Successful' : isRegistered ? 'Registered' : 'Pending'}
-                        </span>
-                      </td>
-
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-slate-700 text-xs">
-                            {sem.units.length} Units ({sem.units.reduce((acc, u) => acc + u.units, 0)} Cr)
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => setSelectedRecord(sem)}
-                            className="inline-flex items-center justify-center px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-[11px] font-bold text-slate-700 shadow-sm hover:bg-slate-100 hover:text-slate-900 hover:border-slate-300 hover:shadow-md transition-all duration-200 cursor-pointer"
-                          >
-                            View
-                          </button>
-                        </div>
-                      </td>
-
-                      <td className="py-3.5 px-4 text-center whitespace-nowrap">
-                        {sem.examPassReady ? (
-                          <button
-                            type="button"
-                            onClick={() => handleDownloadExamPass(sem)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs bg-[#6f1825] hover:bg-[#59131e] text-white shadow-2xs transition-colors cursor-pointer"
-                            title="Exam pass is ready. Click to preview and download."
-                          >
-                            <Download className="w-3.5 h-3.5 text-amber-300" />
-                            <span>Download Pass</span>
-                          </button>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 text-slate-400 border border-slate-200">
-                            <AlertCircle className="w-3 h-3 text-amber-500" />
-                            <span>Pending Clearance</span>
-                          </span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+    <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Back to Dashboard"
+          >
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <div>
+            <h1 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+              Semester Registration & Course Enrollment Tracker
+            </h1>
+            <p className="text-xs text-slate-600 mt-0.5">
+              Student: {user.name} ({user.admissionNo}) • Status & Exam Passes Since Year 1 Entry
+            </p>
           </div>
         </div>
+      </div>
+
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[760px] border-collapse text-left text-xs bg-transparent">
+          <thead>
+            <tr className="bg-[#FAF2DE] text-slate-800 font-extrabold uppercase tracking-wider text-[11px] border-b border-slate-200">
+              <th className="py-3 px-3 border border-slate-200">Academic Year</th>
+              <th className="py-3 px-3 border border-slate-200">Semester</th>
+              <th className="py-3 px-3 border border-slate-200">Registration Status</th>
+              <th className="py-3 px-3 border border-slate-200">Enrolled Units</th>
+              <th className="py-3 px-3 border border-slate-200 text-center">Exam Pass</th>
+            </tr>
+          </thead>
+          <tbody>
+            {records.map((sem, index) => {
+              const isSuccessful = sem.status === 'Successful';
+              const isRegistered = sem.status === 'Registered';
+
+              return (
+                <tr key={sem.id} className={`align-middle ${index % 2 === 0 ? 'bg-white/40' : 'bg-white/20'}`}>
+                  <td className="py-3.5 px-3 border border-slate-200 font-bold whitespace-nowrap text-slate-900">
+                    <span className="px-2 py-1 rounded-md bg-white border border-slate-200 font-mono text-[11px] text-slate-900 shadow-2xs">
+                      {sem.academicYear}
+                    </span>
+                  </td>
+
+                  <td className="py-3.5 px-3 border border-slate-200 font-bold text-slate-900">
+                    <div>
+                      <span className="font-extrabold text-slate-900 block">{formatSemesterTitle(sem.title)}</span>
+                      {sem.registrationDate && (
+                        <span className="text-[10px] text-slate-500 font-normal">
+                          Enrolled: {sem.registrationDate}
+                        </span>
+                      )}
+                    </div>
+                  </td>
+
+                  <td className="py-3.5 px-3 border border-slate-200 whitespace-nowrap text-center">
+                    <span
+                      className={`inline-flex items-center justify-center gap-1.5 px-2.5 py-1 rounded-full text-[10.5px] font-black border mx-auto min-w-[110px] ${
+                        isSuccessful || isRegistered
+                          ? 'bg-emerald-600 text-white border-emerald-500'
+                          : 'bg-amber-100 text-amber-900 border-amber-300'
+                      }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full ${
+                          isSuccessful || isRegistered ? 'bg-emerald-600' : 'bg-amber-600'
+                        }`}
+                      />
+                      {isSuccessful ? 'Successful' : isRegistered ? 'Registered' : 'Pending'}
+                    </span>
+                  </td>
+
+                  <td className="py-3.5 px-3 border border-slate-200 whitespace-nowrap text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <span className="font-semibold text-slate-700 text-xs">
+                        {sem.units.length} Units
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedRecord(sem)}
+                        className="inline-flex items-center justify-center px-2.5 py-1.5 rounded-lg border border-slate-200 bg-[#FAF2DE] text-[11px] font-bold text-slate-700 shadow-sm hover:bg-[#F3E6C3] hover:text-slate-900 hover:border-slate-300 transition-all duration-200 cursor-pointer"
+                      >
+                        View
+                      </button>
+                    </div>
+                  </td>
+
+                  <td className="py-3.5 px-3 border border-slate-200 text-center whitespace-nowrap">
+                    {sem.examPassReady ? (
+                      <button
+                        type="button"
+                        onClick={() => handleDownloadExamPass(sem)}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl font-bold text-xs bg-[#6f1825] hover:bg-[#59131e] text-white shadow-2xs transition-colors cursor-pointer"
+                        title="Exam pass is ready. Click to preview and download."
+                      >
+                        <Download className="w-3.5 h-3.5 text-amber-300" />
+                        <span>Download Pass</span>
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-bold bg-slate-100 text-slate-400 border border-slate-200">
+                        <AlertCircle className="w-3 h-3 text-amber-500" />
+                        <span>Pending Clearance</span>
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
       {selectedExamPass && (
@@ -507,6 +634,6 @@ export const RegistrationPage: React.FC<{
           </div>
         </div>
       )}
-    </PageWrapper>
+    </div>
   );
 };

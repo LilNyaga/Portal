@@ -80,7 +80,7 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
         </div>
 
         {/* Scrollable Navigation List - Uniform cream, borderless headers with clean sub-branches */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-2 text-sm bg-[#FAF2DE]">
+        <div className="flex-1 overflow-y-auto p-3 space-y-2 text-sm bg-[#FAF2DE]">
           
           {/* 1. FINANCE SECTOR */}
           <div className="space-y-1">
@@ -104,10 +104,10 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
             {/* Sub-branches */}
             {openSections.finance && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
+              <div className="ml-3 pl-2 space-y-1 py-1 transition-all">
                 <button
                   onClick={() => { onOpenModal('howToPay'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
+                  className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   Pay Fees
                 </button>
@@ -144,10 +144,10 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
 
             {/* Sub-branches */}
             {openSections.courses && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
+              <div className="ml-3 pl-2 space-y-1 py-1 transition-all">
                 <button
                   onClick={() => { onOpenModal('myCourse'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
+                  className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   My Course
                 </button>
@@ -251,16 +251,6 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
                   className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
                 >
                   Exam Results
-                </button>
-
-                <button
-                  onClick={() => {
-                    alert('KMTC Examination Card:\n\nCandidate: Lemayian (PT/2024/048)\nProgramme: Diploma in Physiotherapy (Year 2)\nExam Period: Term 1 Final Examinations\nFinancial Clearance: Cleared (KES 0.00 Bal)\nAttendance Clearance: 94% (Eligible)\nStatus: VALID EXAM CARD ISSUED');
-                    onClose();
-                  }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Exam Card
                 </button>
 
                 <button

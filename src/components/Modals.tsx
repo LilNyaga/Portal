@@ -957,67 +957,54 @@ export const HostelPage: React.FC<{
   hostel?: HostelAllocation;
   onBack: () => void;
 }> = ({ onBack }) => {
-  const hostelRooms = [
-    { id: 1, name: 'KMTC Main Campus Hostel', block: 'Block A (Men)', roomNo: 'Room 101', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: '2 Vacant Beds', fee: 'KES 8,500', status: 'Available' },
-    { id: 2, name: 'KMTC Main Campus Hostel', block: 'Block A (Men)', roomNo: 'Room 102', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: '1 Vacant Bed', fee: 'KES 8,500', status: 'Available' },
-    { id: 3, name: 'KMTC Main Campus Hostel', block: 'Block B (Physiotherapy Wing)', roomNo: 'Room 14', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: 'Fully Booked', fee: 'KES 8,500', status: 'Occupied' },
-    { id: 4, name: 'KMTC Main Campus Hostel', block: 'Block B (Physiotherapy Wing)', roomNo: 'Room 15', type: '4-Bed Standard Cubicle', capacity: '4 Beds', available: '3 Vacant Beds', fee: 'KES 8,500', status: 'Available' },
-    { id: 5, name: 'KMTC Senior Hostel', block: 'Block C (Women)', roomNo: 'Room 201', type: '2-Bed Self-Contained', capacity: '2 Beds', available: '1 Vacant Bed', fee: 'KES 12,000', status: 'Available' },
-    { id: 6, name: 'KMTC Senior Hostel', block: 'Block C (Women)', roomNo: 'Room 202', type: '2-Bed Self-Contained', capacity: '2 Beds', available: 'Fully Booked', fee: 'KES 12,000', status: 'Occupied' },
-    { id: 7, name: 'KMTC Annex Hostels', block: 'Block D (Postgraduate Wing)', roomNo: 'Room 305', type: 'Single Executive Cubicle', capacity: '1 Bed', available: 'Fully Booked', fee: 'KES 15,000', status: 'Occupied' },
-    { id: 8, name: 'KMTC Annex Hostels', block: 'Block D (Postgraduate Wing)', roomNo: 'Room 306', type: 'Single Executive Cubicle', capacity: '1 Bed', available: '1 Vacant Bed', fee: 'KES 15,000', status: 'Available' },
-  ];
+  const tableHeaders = ['Academic Year', 'Semester', 'Hotel', 'Room', 'Bed', 'Status'];
 
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Book Hostels"
-    >
-      <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-2xs">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="bg-slate-100 text-slate-800 font-extrabold border-b border-slate-200 uppercase tracking-wider text-[11px]">
-                <th className="py-3 px-4">#</th>
-                <th className="py-3 px-4">Hostel Name</th>
-                <th className="py-3 px-4">Block</th>
-                <th className="py-3 px-4">Room No</th>
-                <th className="py-3 px-4">Room Type</th>
-                <th className="py-3 px-4">Capacity</th>
-                <th className="py-3 px-4">Available Spaces</th>
-                <th className="py-3 px-4">Semester Fee</th>
-                <th className="py-3 px-4">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100">
-              {hostelRooms.map((room) => (
-                <tr key={room.id} className="hover:bg-slate-50 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-slate-500">{room.id}</td>
-                  <td className="py-3.5 px-4 font-bold text-slate-900">{room.name}</td>
-                  <td className="py-3.5 px-4 text-slate-700">{room.block}</td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-slate-800">{room.roomNo}</td>
-                  <td className="py-3.5 px-4 text-slate-600">{room.type}</td>
-                  <td className="py-3.5 px-4 text-slate-600">{room.capacity}</td>
-                  <td className="py-3.5 px-4 font-semibold text-slate-700">{room.available}</td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-slate-900">{room.fee}</td>
-                  <td className="py-3.5 px-4">
-                    <span
-                      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                        room.status === 'Available'
-                          ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
-                          : 'bg-slate-100 text-slate-600 border border-slate-200'
-                      }`}
-                    >
-                      {room.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+    <div className="w-full pt-2 sm:pt-4">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Back to Dashboard"
+          >
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
+          </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Accommodation
+          </h2>
         </div>
+
+        <button
+          type="button"
+          className="px-4 py-2.5 rounded-xl bg-[#6f1825] text-white font-bold text-xs shadow-xs hover:bg-[#581620] transition-colors whitespace-nowrap"
+        >
+          Reserve Bed
+        </button>
       </div>
-    </PageWrapper>
+
+      <div className="overflow-x-auto w-full">
+        <table className="w-full min-w-[760px] border-collapse text-left text-xs bg-transparent">
+          <thead>
+            <tr className="bg-[#FAF2DE] text-slate-800 font-extrabold uppercase tracking-wider text-[11px] border-b border-slate-200">
+              {tableHeaders.map((header) => (
+                <th key={header} className="py-3 px-4 border border-slate-200">
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="h-16 align-middle">
+              <td colSpan={tableHeaders.length} className="border border-slate-200 bg-white px-4 py-3 text-center font-medium text-slate-500">
+                No Data Available
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
@@ -1064,77 +1051,59 @@ const CALENDAR_MONTHS_2026 = [
 export const CalendarPage: React.FC<{
   onBack: () => void;
 }> = ({ onBack }) => {
-  const [currentMonthIndex, setCurrentMonthIndex] = useState(0); // 0 = Jan 2026
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
 
   const month = CALENDAR_MONTHS_2026[currentMonthIndex];
   const monthHolidays = KENYA_NATIONAL_DAYS_2026.filter((h) => h.month === currentMonthIndex);
 
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Kenyan Calendar • National Days (2026)"
-      subtitle="Republic of Kenya Official Public Holidays & Gazetted National Days"
-    >
-      <div className="space-y-4 text-xs">
-        {/* Month Selector Tabs */}
-        <div className="flex items-center gap-1 overflow-x-auto pb-1 bg-slate-50 p-2 rounded-2xl border border-slate-200">
-          {CALENDAR_MONTHS_2026.map((m) => {
-            const hasHolidays = KENYA_NATIONAL_DAYS_2026.some((h) => h.month === m.index);
-            const isSelected = currentMonthIndex === m.index;
-            return (
-              <button
-                key={m.index}
-                type="button"
-                onClick={() => setCurrentMonthIndex(m.index)}
-                className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-colors shrink-0 flex items-center gap-1 cursor-pointer ${
-                  isSelected
-                    ? 'bg-[#6f1825] text-white shadow-2xs'
-                    : 'bg-white hover:bg-slate-200 text-slate-700 border border-slate-200'
-                }`}
-              >
-                <span>{m.shortName}</span>
-                {hasHolidays && (
-                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-amber-300' : 'bg-rose-500'}`} />
-                )}
-              </button>
-            );
-          })}
+    <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Go Back"
+          >
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
+          </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Academic Calendar
+          </h2>
         </div>
+      </div>
 
-        {/* Visual Calendar Grid for Selected Month */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-4">
-          {/* Month Header & Controls */}
-          <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+      <div className="space-y-3 text-xs">
+        <div className="rounded-2xl bg-white border border-slate-200 shadow-2xs p-2.5 sm:p-3">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <CalendarIcon className="w-5 h-5 text-[#6f1825]" />
-              <h3 className="font-black text-base sm:text-lg text-slate-900">
-                {month.name}
-              </h3>
+              <CalendarIcon className="w-4 h-4 text-[#6f1825]" />
+              <h3 className="font-black text-sm sm:text-base text-slate-900">{month.name}</h3>
             </div>
             <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setCurrentMonthIndex((prev) => Math.max(0, prev - 1))}
                 disabled={currentMonthIndex === 0}
-                className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors cursor-pointer"
                 aria-label="Previous Month"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft className="w-3.5 h-3.5" />
               </button>
               <button
                 type="button"
                 onClick={() => setCurrentMonthIndex((prev) => Math.min(11, prev + 1))}
                 disabled={currentMonthIndex === 11}
-                className="p-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 disabled:opacity-40 transition-colors cursor-pointer"
                 aria-label="Next Month"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
           </div>
 
-          {/* Days of Week Header */}
-          <div className="grid grid-cols-7 text-center font-extrabold text-[11px] text-slate-500 uppercase tracking-wider py-1 bg-slate-50 rounded-xl">
+          <div className="grid grid-cols-7 text-center font-extrabold text-[10px] text-slate-500 uppercase tracking-wider py-1.5 bg-slate-50 rounded-xl mt-2">
             <span className="text-rose-600">Sun</span>
             <span>Mon</span>
             <span>Tue</span>
@@ -1144,10 +1113,9 @@ export const CalendarPage: React.FC<{
             <span>Sat</span>
           </div>
 
-          {/* Month Days Grid */}
-          <div className="grid grid-cols-7 gap-1.5 text-center font-mono text-xs">
+          <div className="grid grid-cols-7 gap-1 text-center font-mono text-[10px] mt-2">
             {Array.from({ length: month.startDayOfWeek }).map((_, i) => (
-              <div key={`empty-${i}`} className="p-3 opacity-0 select-none">.</div>
+              <div key={`empty-${i}`} className="p-2 opacity-0 select-none">.</div>
             ))}
             {Array.from({ length: month.days }).map((_, i) => {
               const dayNum = i + 1;
@@ -1156,99 +1124,27 @@ export const CalendarPage: React.FC<{
               return (
                 <div
                   key={dayNum}
-                  className={`min-h-[64px] sm:min-h-[72px] p-1.5 sm:p-2 rounded-xl flex flex-col items-center justify-between transition-all border ${
+                  className={`min-h-[46px] sm:min-h-[54px] p-1 rounded-lg flex flex-col items-center justify-between transition-all border ${
                     holiday
-                      ? 'bg-rose-50 text-rose-950 font-black border-rose-300 ring-2 ring-rose-200 shadow-2xs'
+                      ? 'bg-rose-50 text-rose-950 font-black border-rose-300 ring-1 ring-rose-200 shadow-2xs'
                       : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-100'
                   }`}
                 >
-                  <span className={`text-xs sm:text-sm font-bold ${holiday ? 'text-rose-700 font-black' : ''}`}>
+                  <span className={`text-[10px] sm:text-xs font-bold ${holiday ? 'text-rose-700 font-black' : ''}`}>
                     {dayNum}
                   </span>
                   {holiday && (
-                    <div className="mt-1 w-full">
-                      <span className="block px-1 py-0.5 rounded text-[9px] sm:text-[10px] font-black uppercase tracking-tight bg-[#6f1825] text-amber-200 leading-tight truncate">
-                        {holiday.name}
-                      </span>
-                    </div>
+                    <span className="block w-full px-1 py-0.5 rounded text-[7px] sm:text-[8px] font-black uppercase tracking-tight bg-[#6f1825] text-amber-200 leading-tight truncate">
+                      {holiday.name}
+                    </span>
                   )}
                 </div>
               );
             })}
           </div>
         </div>
-
-        {/* National Days of the Selected Month */}
-        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
-          <h4 className="font-black text-slate-900 text-xs sm:text-sm uppercase tracking-wider flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-600" />
-            Kenyan National Days in {month.name}
-          </h4>
-
-          {monthHolidays.length > 0 ? (
-            <div className="space-y-2">
-              {monthHolidays.map((holiday) => (
-                <div
-                  key={holiday.name}
-                  className="p-3 rounded-xl bg-white border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span className="w-10 h-10 rounded-xl bg-rose-100 border border-rose-300 text-rose-900 font-black text-sm flex items-center justify-center shrink-0">
-                      {holiday.day}
-                    </span>
-                    <div>
-                      <strong className="text-sm font-black text-slate-900 block leading-tight">
-                        {holiday.name}
-                      </strong>
-                      <span className="text-[11px] text-slate-500">{holiday.type}</span>
-                    </div>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 font-extrabold text-[10px] uppercase self-start sm:self-auto">
-                    Gazetted Public Holiday
-                  </span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-slate-500 text-xs italic py-2">
-              There are no gazetted Kenyan national public holidays in {month.name}.
-            </p>
-          )}
-        </div>
-
-        {/* Complete Year Directory of Kenyan National Days */}
-        <div className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-2xs">
-          <div className="px-4 py-3 bg-slate-100/70 border-b border-slate-200">
-            <h4 className="font-extrabold text-slate-900 text-xs sm:text-sm">
-              All 2026 Kenyan Gazetted National Holidays
-            </h4>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs border-collapse">
-              <thead>
-                <tr className="bg-slate-100 text-slate-800 font-extrabold border-b border-slate-200 uppercase tracking-wider text-[11px]">
-                  <th className="py-2.5 px-4">Date</th>
-                  <th className="py-2.5 px-4">National Holiday</th>
-                  <th className="py-2.5 px-4">Gazetted Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {KENYA_NATIONAL_DAYS_2026.map((h) => (
-                  <tr key={`${h.month}-${h.day}-${h.name}`} className="hover:bg-slate-50 transition-colors">
-                    <td className="py-2.5 px-4 font-mono font-bold text-slate-900 whitespace-nowrap">
-                      {String(h.day).padStart(2, '0')}{' '}
-                      {CALENDAR_MONTHS_2026[h.month].shortName} 2026
-                    </td>
-                    <td className="py-2.5 px-4 font-bold text-slate-900">{h.name}</td>
-                    <td className="py-2.5 px-4 text-slate-600">{h.type}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
       </div>
-    </PageWrapper>
+    </div>
   );
 };
 
