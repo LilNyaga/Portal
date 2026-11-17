@@ -78,123 +78,103 @@ export const ProfilePage: React.FC<{
   onBack: () => void;
 }> = ({ user, onBack }) => {
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Official Student Profile & Biodata Record"
-      subtitle="KMTC Registrar Directorate • Student Registry Services"
-    >
-      <div className="space-y-5 text-xs">
-        {/* Profile Identity Hero */}
-        <div className="p-5 rounded-2xl bg-gradient-to-r from-slate-900 to-[#6f1825] text-white flex flex-col sm:flex-row items-center sm:items-start justify-between gap-4 shadow-sm">
-          <div className="flex items-center gap-4 text-center sm:text-left flex-col sm:flex-row">
-            <div className="w-20 h-20 rounded-2xl bg-amber-400 text-[#6f1825] font-black text-3xl flex items-center justify-center shadow-md">
-              {user.name.substring(0, 2).toUpperCase()}
-            </div>
-            <div>
-              <div className="flex items-center justify-center sm:justify-start gap-2">
-                <h4 className="text-xl font-black text-white">{user.name}</h4>
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/90 text-white font-extrabold text-[10px] uppercase tracking-wide">
-                  Active
-                </span>
-              </div>
-              <p className="text-amber-200 font-mono font-bold text-sm mt-0.5">{user.admissionNo}</p>
-              <p className="text-slate-300 text-xs flex items-center justify-center sm:justify-start gap-1.5 mt-1">
-                <Mail className="w-3.5 h-3.5 text-amber-300" /> {user.email}
-              </p>
-            </div>
-          </div>
-          <div className="bg-white/10 backdrop-blur-xs px-4 py-2.5 rounded-xl border border-white/15 text-center sm:text-right shrink-0">
-            <span className="text-[10px] text-amber-200 uppercase font-bold block">Academic Standing</span>
-            <span className="text-sm font-black text-white">NORMAL PROGRESS (PASS)</span>
-          </div>
-        </div>
-
-        {/* 1. Personal Biodata Section */}
-        <div className="space-y-2.5">
-          <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
-            <User className="w-4 h-4 text-[#6f1825]" /> Personal Biodata
-          </h5>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">National ID / Passport</span>
-              <strong className="text-slate-900 font-mono text-xs sm:text-sm">{user.nationalId || '38940192'}</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Gender</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">{user.gender || 'Male'}</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Date of Birth</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">14 August 2003</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">County of Origin</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">{user.county || 'Narok County'}</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Mobile Contact</span>
-              <strong className="text-slate-900 text-xs sm:text-sm font-mono">{user.phone || '+254 712 345 678'}</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Blood Group</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">O Positive (O+)</strong>
-            </div>
-          </div>
-        </div>
-
-        {/* 2. Academic Enrollment Section */}
-        <div className="space-y-2.5">
-          <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
-            <GraduationCap className="w-4 h-4 text-[#6f1825]" /> Academic & Departmental Enrollment
-          </h5>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Degree / Programme</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">Diploma in Physiotherapy</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Department & Campus</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">Physiotherapy • KMTC Nyeri Campus</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Year of Entry & Cohort</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">September 2024 (Cohort 2024)</strong>
-            </div>
-            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-slate-500 text-[11px] block">Expected Graduation</span>
-              <strong className="text-slate-900 text-xs sm:text-sm">July 2027</strong>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. Next of Kin & Guardian Section */}
-        <div className="space-y-2.5">
-          <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-[#6f1825]" /> Emergency Next of Kin & Guardian
-          </h5>
-          <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
-            <div>
-              <strong className="text-slate-900 text-sm">{user.guardianName || 'Samuel Lemayian'}</strong>
-              <p className="text-slate-500 text-xs">Relationship: Parent / Primary Guardian</p>
-            </div>
-            <div className="flex items-center gap-1.5 text-slate-700 font-mono font-bold text-xs sm:text-sm">
-              <Phone className="w-4 h-4 text-emerald-700" /> {user.guardianPhone || '+254 722 998 877'}
-            </div>
-          </div>
-        </div>
-
-        {/* Actions */}
-        <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100">
-          <span className="text-xs text-slate-400">Record verified by KMTC Academic Registrar Office</span>
+    <div className="w-full min-h-screen bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-[#eadbc6] mb-5 px-2 sm:px-4 pt-3">
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => alert('Official KMTC Student Biodata Card (PDF) downloaded.')}
-            className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-9 h-9 rounded-full text-[#6f1825] hover:bg-[#F8E9DC] transition-colors cursor-pointer select-none shrink-0"
+            aria-label="Back to Dashboard"
           >
-            <Download className="w-4 h-4" /> Download Student Biodata Card (PDF)
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
           </button>
+
+          <div>
+            <h2 className="font-black text-lg sm:text-xl text-slate-900 leading-tight">Official Student Profile & Biodata Record</h2>
+            <p className="text-xs text-slate-600">KMTC Registrar Directorate • Student Registry Services</p>
+          </div>
         </div>
       </div>
-    </PageWrapper>
+
+      <div className="max-w-6xl mx-auto px-2 sm:px-4 pb-6">
+        <div className="rounded-3xl border border-[#eadbc6] bg-[#fffaf4] shadow-sm overflow-hidden">
+          <div className="space-y-5 text-xs p-3 sm:p-5">
+            <div className="space-y-2.5">
+              <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
+                <User className="w-4 h-4 text-[#6f1825]" /> Personal Biodata
+              </h5>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">National ID / Passport</span>
+                  <strong className="text-slate-900 font-mono text-xs sm:text-sm">{user.nationalId || '38940192'}</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Gender</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">{user.gender || 'Male'}</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Date of Birth</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">14 August 2003</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">County of Origin</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">{user.county || 'Narok County'}</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Mobile Contact</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm font-mono">{user.phone || '+254 712 345 678'}</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Blood Group</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">O Positive (O+)</strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2.5">
+              <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
+                <GraduationCap className="w-4 h-4 text-[#6f1825]" /> Academic & Departmental Enrollment
+              </h5>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Degree / Programme</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">Diploma in Physiotherapy</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Department & Campus</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">Physiotherapy • KMTC Nyeri Campus</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Year of Entry & Cohort</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">September 2024 (Cohort 2024)</strong>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-[#eadbc6]">
+                  <span className="text-slate-500 text-[11px] block">Expected Graduation</span>
+                  <strong className="text-slate-900 text-xs sm:text-sm">July 2027</strong>
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-2.5">
+              <h5 className="font-extrabold text-slate-800 uppercase tracking-wider text-xs flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-[#6f1825]" /> Emergency Next of Kin & Guardian
+              </h5>
+              <div className="p-3.5 rounded-xl bg-white border border-[#eadbc6] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5">
+                <div>
+                  <strong className="text-slate-900 text-sm">{user.guardianName || 'Samuel Lemayian'}</strong>
+                  <p className="text-slate-500 text-xs">Relationship: Parent / Primary Guardian</p>
+                </div>
+                <div className="flex items-center gap-1.5 text-slate-700 font-mono font-bold text-xs sm:text-sm">
+                  <Phone className="w-4 h-4 text-emerald-700" /> {user.guardianPhone || '+254 722 998 877'}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -211,14 +191,28 @@ export const TimetablePage: React.FC<{
   const filteredSlots = slots.filter((s) => s.day === selectedDay);
 
   return (
-    <PageWrapper
-      onBack={onBack}
-      title="Complete Weekly Timetable & Lecture Schedule"
-      subtitle="Department of Physiotherapy • Year 2 Semester 1"
-    >
-      <div className="space-y-4 text-xs">
-        {/* Day Selector Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 border-b border-slate-100">
+    <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-[#eadbc6] mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Back to Dashboard"
+          >
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
+          </button>
+          <div>
+            <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+              Complete Weekly Timetable & Lecture Schedule
+            </h2>
+            <p className="text-xs text-slate-600">Department of Physiotherapy • Year 2 Semester 1</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4 text-xs rounded-2xl border border-[#eadbc6] bg-[#fffaf4] p-3 sm:p-4 shadow-sm">
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 border-b border-[#eadbc6]">
           {days.map((day) => (
             <button
               key={day}
@@ -226,7 +220,7 @@ export const TimetablePage: React.FC<{
               className={`px-4 py-2 rounded-xl font-bold text-xs whitespace-nowrap transition-colors ${
                 selectedDay === day
                   ? 'bg-[#6f1825] text-white shadow-xs'
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  : 'bg-[#FAF2DE] hover:bg-[#f3e2bb] text-slate-700 border border-[#eadbc6]'
               }`}
             >
               {day}
@@ -234,21 +228,19 @@ export const TimetablePage: React.FC<{
           ))}
         </div>
 
-        {/* Selected Day Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <div>
             <h4 className="font-black text-sm sm:text-base text-slate-900">{selectedDay} Schedule</h4>
             <p className="text-xs text-slate-500">Official lectures, practical laboratory demos & hospital rotations</p>
           </div>
-          <span className="text-xs font-mono font-bold bg-slate-100 text-slate-700 px-3 py-1 rounded-lg border border-slate-200">
+          <span className="text-xs font-mono font-bold bg-[#FAF2DE] text-slate-700 px-3 py-1 rounded-lg border border-[#eadbc6]">
             {filteredSlots.length} Scheduled Sessions
           </span>
         </div>
 
-        {/* Slot Cards List */}
         <div className="space-y-3">
           {filteredSlots.length === 0 ? (
-            <div className="p-8 text-center text-slate-400 border rounded-2xl bg-slate-50">
+            <div className="p-8 text-center text-slate-500 border rounded-2xl bg-white border-[#eadbc6]">
               No classes scheduled for {selectedDay}. Independent study or clinic library reading.
             </div>
           ) : (
@@ -258,20 +250,20 @@ export const TimetablePage: React.FC<{
                 className={`p-4 rounded-xl border transition-all ${
                   slot.isNow
                     ? 'border-emerald-500 bg-emerald-50/60 shadow-xs'
-                    : 'border-slate-200 bg-white hover:bg-slate-50/60'
+                    : 'border-[#eadbc6] bg-white hover:bg-[#fffaf4]'
                 }`}
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-start gap-3.5">
                     <div className={`px-3 py-2 rounded-xl text-center font-mono font-bold text-xs shrink-0 ${
-                      slot.isNow ? 'bg-emerald-700 text-white' : 'bg-slate-100 text-slate-800'
+                      slot.isNow ? 'bg-emerald-700 text-white' : 'bg-[#FAF2DE] text-slate-800 border border-[#eadbc6]'
                     }`}>
                       {slot.startTime} - {slot.endTime}
                       {slot.isNow && <span className="block text-[9px] uppercase font-black">CURRENT</span>}
                     </div>
                     <div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-200">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-xs font-bold px-2 py-0.5 rounded bg-[#FAF2DE] text-slate-800 border border-[#eadbc6]">
                           {slot.unitCode}
                         </span>
                         <h5 className="font-extrabold text-sm text-slate-900">{slot.unitName}</h5>
@@ -281,10 +273,10 @@ export const TimetablePage: React.FC<{
                       )}
                       <div className="flex flex-wrap items-center gap-4 mt-2 text-xs text-slate-500">
                         <span className="flex items-center gap-1.5 font-medium text-slate-700">
-                          <User className="w-3.5 h-3.5 text-slate-400" /> {slot.lecturer}
+                          <User className="w-3.5 h-3.5 text-[#6f1825]" /> {slot.lecturer}
                         </span>
                         <span className="flex items-center gap-1.5 text-slate-700">
-                          <MapPin className="w-3.5 h-3.5 text-slate-400" /> {slot.room}
+                          <MapPin className="w-3.5 h-3.5 text-[#6f1825]" /> {slot.room}
                         </span>
                       </div>
                     </div>
@@ -295,18 +287,9 @@ export const TimetablePage: React.FC<{
           )}
         </div>
 
-        {/* Actions */}
-        <div className="pt-3 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-100">
-          <span className="text-xs text-slate-400">Updated weekly by Class Representative & HOD</span>
-          <button
-            onClick={() => alert('Official Weekly Class Timetable (PDF) downloaded.')}
-            className="w-full sm:w-auto px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
-          >
-            <Download className="w-4 h-4" /> Download Full Timetable (PDF)
-          </button>
-        </div>
+        <div className="pt-3 border-t border-[#eadbc6]" />
       </div>
-    </PageWrapper>
+    </div>
   );
 };
 
@@ -1051,10 +1034,12 @@ const CALENDAR_MONTHS_2026 = [
 export const CalendarPage: React.FC<{
   onBack: () => void;
 }> = ({ onBack }) => {
-  const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
+  const today = new Date();
+  const [currentMonthIndex, setCurrentMonthIndex] = useState(() => today.getMonth());
 
   const month = CALENDAR_MONTHS_2026[currentMonthIndex];
   const monthHolidays = KENYA_NATIONAL_DAYS_2026.filter((h) => h.month === currentMonthIndex);
+  const isToday = (day: number) => day === today.getDate() && currentMonthIndex === today.getMonth();
 
   return (
     <div className="w-full pt-2 sm:pt-4 bg-[#FAF6EE] text-slate-800">
@@ -1120,21 +1105,26 @@ export const CalendarPage: React.FC<{
             {Array.from({ length: month.days }).map((_, i) => {
               const dayNum = i + 1;
               const holiday = monthHolidays.find((h) => h.day === dayNum);
+              const todayCell = isToday(dayNum);
 
               return (
                 <div
                   key={dayNum}
-                  className={`min-h-[46px] sm:min-h-[54px] p-1 rounded-lg flex flex-col items-center justify-between transition-all border ${
-                    holiday
-                      ? 'bg-rose-50 text-rose-950 font-black border-rose-300 ring-1 ring-rose-200 shadow-2xs'
-                      : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-100'
+                  className={`min-h-[46px] sm:min-h-[54px] p-1 rounded-lg flex flex-col items-center justify-center text-center transition-all border ${
+                    todayCell
+                      ? 'bg-[#6f1825] text-white border-[#6f1825] shadow-sm ring-1 ring-[#6f1825]/20'
+                      : holiday
+                        ? 'bg-rose-50 text-rose-950 font-black border-rose-300 ring-1 ring-rose-200 shadow-2xs'
+                        : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-100'
                   }`}
                 >
-                  <span className={`text-[10px] sm:text-xs font-bold ${holiday ? 'text-rose-700 font-black' : ''}`}>
+                  <span className={`text-[10px] sm:text-xs font-bold text-center ${todayCell ? 'text-white' : holiday ? 'text-rose-700 font-black' : ''}`}>
                     {dayNum}
                   </span>
                   {holiday && (
-                    <span className="block w-full px-1 py-0.5 rounded text-[7px] sm:text-[8px] font-black uppercase tracking-tight bg-[#6f1825] text-amber-200 leading-tight truncate">
+                    <span className={`mt-1 block w-full px-1 py-0.5 rounded text-[7px] sm:text-[8px] font-black uppercase tracking-tight leading-tight truncate text-center ${
+                      todayCell ? 'bg-white/15 text-white' : 'bg-[#6f1825] text-amber-200'
+                    }`}>
                       {holiday.name}
                     </span>
                   )}
@@ -1193,7 +1183,232 @@ export const RevisionPage: React.FC<{
 };
 
 /* =========================================================================
-   11. CONTACT DIRECTORY PAGE
+   11. MANUAL GUIDE PAGE
+   ========================================================================= */
+export const ManualGuidePage: React.FC<{
+  onBack: () => void;
+}> = ({ onBack }) => {
+  const steps = [
+    {
+      title: '1. Access your dashboard',
+      description: 'The dashboard gives you a quick summary of your academic standings, fees, hostel status, and key student actions.',
+    },
+    {
+      title: '2. Navigate from the left menu',
+      description: 'Use the sidebar to move through registration, exams, finance, resources, and student services without leaving the portal.',
+    },
+    {
+      title: '3. Open service pages',
+      description: 'Each section opens a dedicated page where you can view details, submit requests, or check your record status.',
+    },
+    {
+      title: '4. Get help when needed',
+      description: 'If something is not clear or a page is not working, open the Help option and send a support message directly.',
+    },
+  ];
+
+  return (
+    <div className="w-full pt-2 sm:pt-4">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Go Back"
+          >
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
+          </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Portal Manual
+          </h2>
+        </div>
+      </div>
+
+      <div className="rounded-3xl border border-[#E8D4A0] bg-[#FAF2DE] p-4 sm:p-6 shadow-sm">
+        <div className="space-y-4 rounded-2xl border border-[#E5D7B0] bg-[#FFFDF8] p-4 shadow-xs">
+          <div className="rounded-2xl bg-gradient-to-r from-[#6f1825] to-[#7f1f2d] text-white p-5 shadow-sm">
+            <h3 className="text-base sm:text-lg font-black">Student Portal Overview</h3>
+            <p className="mt-2 text-amber-100 text-xs sm:text-sm">
+              This portal helps students manage fees, academic records, registrations, timetable access, support requests, and daily student services from one place.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {steps.map((step, index) => (
+              <div key={step.title} className="p-4 rounded-xl border border-slate-200 bg-slate-50/80">
+                <div className="flex items-start gap-3">
+                  <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-[#6f1825] text-white font-black text-xs shrink-0">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h4 className="font-black text-sm text-slate-900">{step.title}</h4>
+                    <p className="mt-1 text-slate-600 text-xs leading-5">{step.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* =========================================================================
+   12. HELP / SUPPORT ISSUE PAGE
+   ========================================================================= */
+export const HelpSupportPage: React.FC<{
+  onBack: () => void;
+}> = ({ onBack }) => {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    issueType: 'Portal Access',
+    subject: '',
+    message: '',
+  });
+
+  const handleChange = (field: keyof typeof form, value: string) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const emailTo = 'ictsupport.nyeri@kmtc.ac.ke';
+    const mailSubject = form.subject || `${form.issueType}: Student Issue`;
+    const mailBody = [
+      'Student Name: ' + (form.name || 'N/A'),
+      'Email: ' + (form.email || 'N/A'),
+      'Issue Type: ' + form.issueType,
+      '',
+      'Issue Details:',
+      form.message || 'No details provided.',
+    ].join('\n');
+
+    window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+  };
+
+  return (
+    <div className="w-full pt-2 sm:pt-4">
+      <div className="flex items-center justify-between gap-3 pb-4 border-b border-slate-200 mb-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={onBack}
+            className="flex items-center justify-center w-8 h-8 rounded-full text-slate-700 hover:text-slate-900 transition-colors cursor-pointer select-none shrink-0 bg-transparent border-0 p-0"
+            aria-label="Go Back"
+          >
+            <ArrowLeft className="w-5 h-5 stroke-[2.5]" />
+          </button>
+          <h2 className="font-black text-xl sm:text-2xl text-slate-900 leading-tight">
+            Help
+          </h2>
+        </div>
+      </div>
+
+      <div className="rounded-3xl border border-[#E8D4A0] bg-[#FAF2DE] p-4 sm:p-6 shadow-sm">
+        <div className="space-y-4 rounded-2xl border border-[#E5D7B0] bg-[#FFFDF8] p-4 shadow-xs">
+          <div className="flex items-center gap-3 rounded-2xl bg-[#6f1825] px-4 py-3 text-white shadow-sm">
+            <div className="rounded-xl bg-white/10 p-2">
+              <Mail className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-xs font-black uppercase tracking-wider text-amber-200">Support Desk</div>
+              <div className="text-sm font-bold">Submit your issue</div>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="block text-[11px] font-bold uppercase tracking-wide text-slate-600">
+                Full name
+                <input
+                  type="text"
+                  value={form.name}
+                  onChange={(e) => handleChange('name', e.target.value)}
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 focus:border-[#6f1825] focus:outline-none"
+                  placeholder="Your name"
+                  required
+                />
+              </label>
+
+              <label className="block text-[11px] font-bold uppercase tracking-wide text-slate-600">
+                Email address
+                <input
+                  type="email"
+                  value={form.email}
+                  onChange={(e) => handleChange('email', e.target.value)}
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 focus:border-[#6f1825] focus:outline-none"
+                  placeholder="you@example.com"
+                  required
+                />
+              </label>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="block text-[11px] font-bold uppercase tracking-wide text-slate-600">
+                Issue type
+                <select
+                  value={form.issueType}
+                  onChange={(e) => handleChange('issueType', e.target.value)}
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 focus:border-[#6f1825] focus:outline-none"
+                >
+                  <option>Portal Access</option>
+                  <option>Fees / Payment</option>
+                  <option>Exam Results</option>
+                  <option>Registration</option>
+                  <option>Hostel / Accommodation</option>
+                  <option>Other</option>
+                </select>
+              </label>
+
+              <label className="block text-[11px] font-bold uppercase tracking-wide text-slate-600">
+                Subject
+                <input
+                  type="text"
+                  value={form.subject}
+                  onChange={(e) => handleChange('subject', e.target.value)}
+                  className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 focus:border-[#6f1825] focus:outline-none"
+                  placeholder="Brief summary"
+                  required
+                />
+              </label>
+            </div>
+
+            <label className="block text-[11px] font-bold uppercase tracking-wide text-slate-600">
+              Description of issue
+              <textarea
+                rows={7}
+                value={form.message}
+                onChange={(e) => handleChange('message', e.target.value)}
+                className="mt-1 w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-900 focus:border-[#6f1825] focus:outline-none resize-none"
+                placeholder="Describe the problem, page, date, and any error message..."
+                required
+              />
+            </label>
+
+            <div className="flex flex-col sm:flex-row gap-3 pt-2 border-t border-slate-100">
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#6f1825] px-5 py-2.5 text-sm font-black text-white hover:bg-[#55141d] transition-colors"
+              >
+                <Mail className="w-4 h-4" /> Submit via Gmail
+              </button>
+              <div className="text-[11px] text-slate-500 self-center">
+                Opens your default mail app with a Gmail-style compose message.
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* =========================================================================
+   13. CONTACT DIRECTORY PAGE
    ========================================================================= */
 export const ContactsPage: React.FC<{
   onBack: () => void;

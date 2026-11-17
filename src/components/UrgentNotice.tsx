@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Check, Clock, Megaphone } from 'lucide-react';
+import React from 'react';
+import { Clock, Megaphone } from 'lucide-react';
 import { Announcement } from '../types';
 
 interface UrgentNoticeProps {
@@ -11,13 +11,11 @@ export const UrgentNotice: React.FC<UrgentNoticeProps> = ({
   announcement,
   showReceipts = false
 }) => {
-  const [acknowledged, setAcknowledged] = useState(false);
-
   return (
-    <div className="bg-[#4d0c16] border-2 border-[#731322] rounded-2xl p-4 sm:p-5 shadow-md relative space-y-2.5 text-white">
+    <div className="mt-[4.5rem] mb-4 sm:mb-5 my-3 sm:my-4 bg-[#7a1d2a] border border-[#9b3747] rounded-xl py-4 sm:py-5 px-3 sm:px-4 shadow-sm relative space-y-2 text-white">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div className="flex items-center gap-2.5">
-          <span className="px-2.5 py-1 bg-white/10 border border-white/20 text-rose-100 rounded-md text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 shrink-0">
+          <span className="px-2.5 py-1 bg-white/10 border border-white/15 text-rose-50 rounded-md text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5 shrink-0">
             <Megaphone className="w-3.5 h-3.5 text-amber-300" />
             Important Announcement
           </span>
@@ -25,41 +23,22 @@ export const UrgentNotice: React.FC<UrgentNoticeProps> = ({
             {announcement.title}
           </h3>
         </div>
-        <span className="text-xs font-mono font-medium text-rose-200/90 flex items-center gap-1 shrink-0">
-          <Clock className="w-3.5 h-3.5 text-rose-300" /> {announcement.createdAt}
+        <span className="text-[10px] font-mono font-medium text-rose-100/90 flex items-center gap-1 shrink-0">
+          <Clock className="w-3.5 h-3.5 text-rose-200" /> {announcement.createdAt}
         </span>
       </div>
 
-      <p className="text-xs sm:text-sm text-rose-100/95 leading-relaxed">
+      <p className="text-xs text-rose-50/95 leading-relaxed">
         {announcement.body}
       </p>
 
-      <div className="pt-2 border-t border-rose-900/80 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <span className="text-rose-200">
-          Issued by: <strong className="text-white">{announcement.author}</strong> ({announcement.authorRole})
-        </span>
-
-        <div className="flex items-center gap-2">
-          {showReceipts && (
-            <span className="text-[11px] font-semibold text-rose-100 bg-white/10 border border-white/15 px-2.5 py-1 rounded-md">
-              Read by: {announcement.readCount} / {announcement.totalCohort} Students
-            </span>
-          )}
-
-          <button
-            onClick={() => setAcknowledged(true)}
-            disabled={acknowledged}
-            className={`px-3 py-1 font-bold rounded-lg transition-colors text-xs flex items-center gap-1.5 ${
-              acknowledged
-                ? 'bg-emerald-600 text-white'
-                : 'bg-white/15 hover:bg-white/25 text-white border border-white/20'
-            }`}
-          >
-            <Check className="w-3.5 h-3.5" />
-            {acknowledged ? 'Acknowledged' : 'Acknowledge Notification'}
-          </button>
+      {showReceipts && (
+        <div className="pt-2 border-t border-white/15 flex justify-end">
+          <span className="text-[10px] font-semibold text-rose-50 bg-white/10 border border-white/10 px-2 py-1 rounded-md">
+            Read by: {announcement.readCount} / {announcement.totalCohort} Students
+          </span>
         </div>
-      </div>
+      )}
     </div>
   );
 };

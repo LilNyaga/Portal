@@ -113,11 +113,10 @@ export const QuickActionTiles: React.FC<QuickActionTilesProps> = ({
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-2">
+      <div className="mt-4 mb-2">
         <h2 className="text-xs font-black uppercase tracking-wider text-slate-500">
           Quick Access Services
         </h2>
-        <span className="text-[11px] text-slate-400">Select any tile to open details</span>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3">

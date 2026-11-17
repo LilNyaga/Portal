@@ -6,12 +6,14 @@ interface HeaderProps {
   user: UserProfile;
   onToggleMenu: () => void;
   onRoleChange?: (role: UserRole) => void;
+  onOpenProfile?: () => void;
   unreadCount: number;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   user,
   onToggleMenu,
+  onOpenProfile,
   unreadCount,
 }) => {
   return (
@@ -52,7 +54,12 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           {/* Owner's Profile with User Icon */}
-          <div className="flex items-center gap-2 pl-2 border-l border-white/20">
+          <button
+            type="button"
+            onClick={onOpenProfile}
+            className="flex items-center gap-2 pl-2 border-l border-white/20 hover:bg-white/5 rounded-r-lg pr-1 transition-colors cursor-pointer"
+            title="Open profile"
+          >
             <div className="w-8 h-8 rounded-full bg-amber-400 text-[#6f1825] flex items-center justify-center shadow-inner">
               <UserIcon className="w-4 h-4 text-[#6f1825]" />
             </div>
@@ -63,7 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
               </div>
               <div className="text-[10px] text-amber-200/90 font-mono">{user.admissionNo}</div>
             </div>
-          </div>
+          </button>
 
         </div>
 

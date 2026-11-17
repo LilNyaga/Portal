@@ -14,14 +14,11 @@ export const HeroStatus: React.FC<HeroStatusProps> = ({ user }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-3.5 sm:px-5 sm:py-3 text-slate-900 shadow-xs border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+    <div className="mt-4 mb-4 bg-white rounded-2xl p-3.5 sm:px-5 sm:py-3 text-slate-900 shadow-xs border border-slate-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
       <div>
         <h1 className="text-base sm:text-lg font-black tracking-tight text-slate-900">
           {getGreeting()}, <span className="text-[#6f1825]">{user.name}</span>
         </h1>
-        <p className="text-xs text-slate-500 font-medium">
-          Physiotherapy Department • {user.semester} • <span className="font-mono text-slate-700 font-semibold">{user.admissionNo}</span>
-        </p>
       </div>
 
       <div className="flex items-center gap-2 self-start sm:self-auto shrink-0">

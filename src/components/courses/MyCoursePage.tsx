@@ -105,9 +105,8 @@ export const MyCoursePage: React.FC<{
               </thead>
               <tbody className="divide-y divide-slate-100">
                 <tr className="hover:bg-slate-50 transition-colors align-middle">
-                  <td className="py-4 px-4 whitespace-nowrap align-middle text-center">
-                    <span className="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-900 border border-emerald-300">
-                      <span className="w-2 h-2 rounded-full bg-emerald-600" />
+                  <td className="py-4 px-4 whitespace-nowrap align-middle">
+                    <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-black bg-emerald-100 text-emerald-900 border border-emerald-300 ml-0">
                       {user?.isRegistered ? 'Registered & Cleared' : 'Pending Registration'}
                     </span>
                   </td>

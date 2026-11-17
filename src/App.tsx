@@ -22,7 +22,9 @@ import {
   HostelPage,
   CalendarPage,
   RevisionPage,
-  ContactsPage
+  ContactsPage,
+  ManualGuidePage,
+  HelpSupportPage
 } from './components/Modals';
 import { 
   INITIAL_USER, 
@@ -55,7 +57,9 @@ export type PageView =
   | 'revision'
   | 'contacts'
   | 'myCourse'
-  | 'courseTransfer';
+  | 'courseTransfer'
+  | 'manualGuide'
+  | 'helpSupport';
 
 export function App() {
   const [user, setUser] = useState(INITIAL_USER);
@@ -114,6 +118,7 @@ export function App() {
           user={user}
           onToggleMenu={() => setIsMenuOpen((prev) => !prev)}
           onRoleChange={handleRoleChange}
+          onOpenProfile={() => navigateTo('profile')}
           unreadCount={announcements.filter((a) => a.isUrgent).length}
         />
       </div>
@@ -128,9 +133,11 @@ export function App() {
 
       {/* 3. MAIN CONTAINER: DASHBOARD OR DEDICATED FULL PAGE */}
       <main className={`flex-1 w-full transition-all duration-300 bg-[#FAF6EE] ${
-        currentView === 'howToPay'
-          ? 'max-w-6xl mx-auto px-2 sm:px-4 pt-0 pb-6'
-          : 'max-w-6xl mx-auto px-2 sm:px-4 pt-0 pb-5 space-y-0'
+        currentView === 'profile'
+          ? 'w-full px-0 pt-0 pb-5'
+          : currentView === 'howToPay'
+            ? 'max-w-6xl mx-auto px-2 sm:px-4 pt-0 pb-6'
+            : 'max-w-6xl mx-auto px-2 sm:px-4 pt-0 pb-5 space-y-0'
       } ${
         isMenuOpen ? 'filter blur-[4px] pointer-events-none select-none' : ''
       }`}>
@@ -238,6 +245,14 @@ export function App() {
 
         {currentView === 'courseTransfer' && (
           <CourseTransferPage onBack={() => navigateTo('dashboard')} />
+        )}
+
+        {currentView === 'manualGuide' && (
+          <ManualGuidePage onBack={() => navigateTo('dashboard')} />
+        )}
+
+        {currentView === 'helpSupport' && (
+          <HelpSupportPage onBack={() => navigateTo('dashboard')} />
         )}
 
       </main>

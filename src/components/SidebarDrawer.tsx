@@ -16,7 +16,7 @@ interface SidebarDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   user?: UserProfile;
-  onOpenModal: (modalName: 'grades' | 'fees' | 'howToPay' | 'hostel' | 'revision' | 'contacts' | 'profile' | 'registration' | 'semesterStatus' | 'leaveDeferment' | 'readmission' | 'calendar' | 'supp' | 'timetable' | any) => void;
+  onOpenModal: (modalName: 'grades' | 'fees' | 'howToPay' | 'hostel' | 'revision' | 'contacts' | 'profile' | 'registration' | 'semesterStatus' | 'leaveDeferment' | 'readmission' | 'calendar' | 'supp' | 'timetable' | 'manualGuide' | 'helpSupport' | any) => void;
 }
 
 export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
@@ -296,126 +296,36 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
             )}
           </div>
 
-          {/* 6. STUDY RESOURCES */}
-          <div className="space-y-1">
-            <button
-              type="button"
-              onClick={() => toggleSection('resources')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <BookOpen className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Study Resources
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.resources ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
-            </button>
-
-            {/* Sub-branches */}
-            {openSections.resources && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
-                <button
-                  onClick={() => { onOpenModal('revision'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Revision Papers Archive
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* 7. USER MANUAL */}
+          {/* 6. MANUAL */}
           <div className="space-y-1 pt-2">
             <button
               type="button"
-              onClick={() => toggleSection('manual')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
+              onClick={() => { onOpenModal('manualGuide'); onClose(); }}
+              className="w-full flex items-center px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
             >
               <div className="flex items-center gap-3">
                 <BookOpen className="w-4 h-4 text-amber-900 stroke-[2.5]" />
                 <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  User Manual
+                  Manual
                 </span>
               </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.manual ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
             </button>
-
-            {/* Sub-branches */}
-            {openSections.manual && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
-                <button
-                  onClick={() => {
-                    alert('PhysioConnect Portal Manual:\n\n1. Use Dashboard Tiles for fast access to your Fees, GPA, and Hostel status.\n2. Click any sidebar category to expand and collapse its sub-branches.\n3. Switch roles via the top user selector to test Student, Lecturer, Class Rep, or HOD views.');
-                    onClose();
-                  }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Portal Navigation Guide
-                </button>
-
-                <button
-                  onClick={() => {
-                    alert('KMTC Physiotherapy Student Portal User Manual (PDF) downloaded successfully.');
-                    onClose();
-                  }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Download System Manual
-                </button>
-              </div>
-            )}
           </div>
 
-          {/* 8. HELP & SUPPORT DESK */}
+          {/* 8. HELP */}
           <div className="space-y-1">
             <button
               type="button"
-              onClick={() => toggleSection('support')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
+              onClick={() => { onOpenModal('helpSupport'); onClose(); }}
+              className="w-full flex items-center px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
             >
               <div className="flex items-center gap-3">
                 <LifeBuoy className="w-4 h-4 text-amber-900 stroke-[2.5]" />
                 <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Help & Support Desk
+                  Help
                 </span>
               </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.support ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
             </button>
-
-            {/* Sub-branches */}
-            {openSections.support && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
-                <button
-                  onClick={() => { onOpenModal('contacts'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  ICT & Admin Helpdesk
-                </button>
-
-                <button
-                  onClick={() => {
-                    alert('KMTC Help Desk Hotline: +254 700 000 000 (Mon-Fri 8:00 AM - 5:00 PM) | Email: ictsupport.nyeri@kmtc.ac.ke');
-                    onClose();
-                  }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Direct Emergency Helpline
-                </button>
-              </div>
-            )}
           </div>
 
         </div>
