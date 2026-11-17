@@ -14,15 +14,23 @@ import {
   SuppSpecialExam
 } from '../types';
 
-// Firebase configuration from environment or fallback template
+// Firebase configuration is loaded from environment variables only.
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDemoDummyKeyForPhysioConnectKMTC",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "physioconnect-kmtc.firebaseapp.com",
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "physioconnect-kmtc",
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "physioconnect-kmtc.appspot.com",
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "1029384756",
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:1029384756:web:abcd1234efgh"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? '',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? '',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID ?? '',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ?? '',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? '',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID ?? '',
 };
+
+const hasFirebaseConfig = Object.values(firebaseConfig).every(Boolean);
+
+if (!hasFirebaseConfig) {
+  console.warn(
+    'Firebase configuration is missing. Copy .env.example to .env and add your Firebase keys.'
+  );
+}
 
 // Initialize Firebase safely
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
