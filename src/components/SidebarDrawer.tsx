@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
-import { 
-  X, 
-  CreditCard, 
-  GraduationCap, 
-  Home, 
-  BookOpen, 
-  ChevronDown,
-  Layers,
-  LifeBuoy,
-  ClipboardCheck
-} from 'lucide-react';
+import { X } from 'lucide-react';
 import { UserProfile } from '../types';
+import { sidebarMeta, sidebarSections, sectionToggleIcon } from './sidebar/sidebarData';
 
 interface SidebarDrawerProps {
   isOpen: boolean;
@@ -24,16 +15,12 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
   onClose,
   onOpenModal,
 }) => {
-  // Track open/collapsed state of headers for accordion sub-branches
   const [openSections, setOpenSections] = useState<Record<string, boolean>>({
     finance: false,
     courses: false,
     registration: false,
     academics: false,
     hostel: false,
-    resources: false,
-    manual: false,
-    support: false,
   });
 
   const toggleSection = (section: string) => {
@@ -43,9 +30,13 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
     }));
   };
 
+  const handleAction = (view: string) => {
+    onOpenModal(view as any);
+    onClose();
+  };
+
   return (
     <>
-      {/* Background Overlay: heavy blur & dark tint so only sidebar options are focused */}
       {isOpen && (
         <div
           onClick={onClose}
@@ -58,17 +49,15 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
         />
       )}
 
-      {/* Slide-Out Drawer Panel: Seamless uniform cream background without container borders */}
       <aside
         className={`fixed top-0 left-0 bottom-0 w-80 sm:w-96 bg-[#FAF2DE] z-50 shadow-2xl flex flex-col transform transition-transform duration-300 ease-in-out border-r border-[#DFC494]/40 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
-        {/* Drawer Header: Same cream background, borderless */}
         <div className="bg-[#FAF2DE] text-slate-900 p-5 flex items-center justify-between">
           <div>
-            <h2 className="font-black text-lg text-slate-950 tracking-tight">KMTC Student Services</h2>
-            <p className="text-xs text-amber-950 font-extrabold uppercase tracking-wider">Department of Physiotherapy</p>
+            <h2 className="font-black text-lg text-slate-950 tracking-tight">{sidebarMeta.title}</h2>
+            <p className="text-xs text-amber-950 font-extrabold uppercase tracking-wider">{sidebarMeta.subtitle}</p>
           </div>
           <button
             onClick={onClose}
@@ -79,261 +68,57 @@ export const SidebarDrawer: React.FC<SidebarDrawerProps> = ({
           </button>
         </div>
 
-        {/* Scrollable Navigation List - Uniform cream, borderless headers with clean sub-branches */}
         <div className="flex-1 overflow-y-auto p-3 space-y-2 text-sm bg-[#FAF2DE]">
-          
-          {/* 1. FINANCE SECTOR */}
-          <div className="space-y-1">
-            <button
-              type="button"
-              onClick={() => toggleSection('finance')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <CreditCard className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Finance & Fee Sector
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.finance ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
-            </button>
+          {sidebarSections.map((section) => {
+            const Icon = section.icon;
+            const hasItems = !!section.items?.length;
 
-            {/* Sub-branches */}
-            {openSections.finance && (
-              <div className="ml-3 pl-2 space-y-1 py-1 transition-all">
+            return (
+              <div key={section.id} className={`${section.id === 'manual' || section.id === 'help' ? 'space-y-1 pt-2' : 'space-y-1'}`}>
                 <button
-                  onClick={() => { onOpenModal('howToPay'); onClose(); }}
-                  className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
+                  type="button"
+                  onClick={() => {
+                    if (hasItems) {
+                      toggleSection(section.id);
+                      return;
+                    }
+                    if (section.action) {
+                      handleAction(section.action.view);
+                    }
+                  }}
+                  className={`w-full flex ${hasItems ? 'items-center justify-between' : 'items-center'} px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none`}
                 >
-                  Pay Fees
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-4 h-4 text-amber-900 stroke-[2.5]" />
+                    <span className="font-black text-xs uppercase tracking-wider text-slate-950">
+                      {section.title}
+                    </span>
+                  </div>
+                  {hasItems && sectionToggleIcon(Boolean(openSections[section.id]))}
                 </button>
 
-                <button
-                  onClick={() => { onOpenModal('fees'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Fee Statement
-                </button>
+                {hasItems && openSections[section.id] && (
+                  <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
+                    {section.items?.map((item) => (
+                      <button
+                        key={item.label}
+                        type="button"
+                        onClick={() => handleAction(item.view)}
+                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-
-          {/* 2. COURSES */}
-          <div className="space-y-1">
-            <button
-              type="button"
-              onClick={() => toggleSection('courses')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <Layers className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Courses
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.courses ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
-            </button>
-
-            {/* Sub-branches */}
-            {openSections.courses && (
-              <div className="ml-3 pl-2 space-y-1 py-1 transition-all">
-                <button
-                  onClick={() => { onOpenModal('myCourse'); onClose(); }}
-                  className="w-full text-left px-2.5 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  My Course
-                </button>
-
-                <button
-                  onClick={() => { onOpenModal('courseTransfer'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Course Transfer
-                </button>
-
-                <button
-                  onClick={() => { onOpenModal('calendar'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Academic Calendar
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* 3. REGISTRATION & PROGRESS */}
-          <div className="space-y-1">
-            <button
-              type="button"
-              onClick={() => toggleSection('registration')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <ClipboardCheck className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Registration & Progress
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.registration ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
-            </button>
-
-            {/* Sub-branches */}
-            {openSections.registration && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
-                <button
-                  onClick={() => { onOpenModal('semesterStatus'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Semester Status
-                </button>
-
-                <button
-                  onClick={() => { onOpenModal('registration'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Semester Registration
-                </button>
-
-                <button
-                  onClick={() => { onOpenModal('leaveDeferment'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Leave / Deferment
-                </button>
-
-                <button
-                  onClick={() => { onOpenModal('readmission'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Readmission
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* 4. EXAMS & ACADEMIC RECORDS */}
-          <div className="space-y-1">
-            <button
-              type="button"
-              onClick={() => toggleSection('academics')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <GraduationCap className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Exams & Academic Records
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.academics ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
-            </button>
-
-            {/* Sub-branches */}
-            {openSections.academics && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
-                <button
-                  onClick={() => { onOpenModal('grades'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Exam Results
-                </button>
-
-                <button
-                  onClick={() => { onOpenModal('supp'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Supp / Special Exams
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* 5. ACCOMMODATION & HOSTELS */}
-          <div className="space-y-1">
-            <button
-              type="button"
-              onClick={() => toggleSection('hostel')}
-              className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <Home className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Accommodation & Hostels
-                </span>
-              </div>
-              <ChevronDown
-                className={`w-4 h-4 text-slate-700 transition-transform duration-200 ${
-                  openSections.hostel ? 'rotate-180 text-amber-950 stroke-[2.5]' : ''
-                }`}
-              />
-            </button>
-
-            {/* Sub-branches */}
-            {openSections.hostel && (
-              <div className="ml-4 pl-3 space-y-1 py-1 transition-all">
-                <button
-                  onClick={() => { onOpenModal('hostel'); onClose(); }}
-                  className="w-full text-left px-3 py-2 rounded-lg hover:bg-[#F3E6C3] text-slate-800 font-semibold transition-colors block"
-                >
-                  Hostel Booking & Status
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* 6. MANUAL */}
-          <div className="space-y-1 pt-2">
-            <button
-              type="button"
-              onClick={() => { onOpenModal('manualGuide'); onClose(); }}
-              className="w-full flex items-center px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <BookOpen className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Manual
-                </span>
-              </div>
-            </button>
-          </div>
-
-          {/* 8. HELP */}
-          <div className="space-y-1">
-            <button
-              type="button"
-              onClick={() => { onOpenModal('helpSupport'); onClose(); }}
-              className="w-full flex items-center px-3 py-2.5 rounded-xl bg-[#FAF2DE] hover:bg-[#F3E6C3] active:bg-[#EBDCBA] text-slate-950 transition-colors cursor-pointer select-none"
-            >
-              <div className="flex items-center gap-3">
-                <LifeBuoy className="w-4 h-4 text-amber-900 stroke-[2.5]" />
-                <span className="font-black text-xs uppercase tracking-wider text-slate-950">
-                  Help
-                </span>
-              </div>
-            </button>
-          </div>
-
+            );
+          })}
         </div>
 
-        {/* Drawer Footer: Same cream background, borderless */}
         <div className="p-4 bg-[#FAF2DE] text-xs font-bold text-slate-800 flex items-center justify-between">
-          <span>KMTC PhysioConnect v1.0</span>
-          <span className="font-semibold text-slate-600">Portal Services</span>
+          <span>{sidebarMeta.footer.left}</span>
+          <span className="font-semibold text-slate-600">{sidebarMeta.footer.right}</span>
         </div>
       </aside>
     </>
